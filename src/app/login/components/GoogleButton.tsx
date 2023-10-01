@@ -1,7 +1,7 @@
 export function GoogleButton() {
     return (
         <>
-            <button className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium text-black border-black hover:bg-light-orange focus:bg-light-orange">
+            <button className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium text-black border-black hover:bg-light-gray focus:bg-light-gray">
                 <div className="flex items-center gap-x-4">
                     <span className="">
                         <svg viewBox="0 0 128 128" className="w-6 h-6">
