@@ -1,21 +1,26 @@
 'use client'
 
-import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { Inputs } from "./Inputs";
 import { GoogleButton } from "./GoogleButton";
+import api from "@/api";
 
 export function Form() {
-    const [output, setOutput] = useState('')
-
-    const { handleSubmit, register ,watch } = useForm()
+    const { handleSubmit, register, watch } = useForm()
 
     function loginData() {
         const formData = {
             email: watch('email'),
             password: watch('password'),
         };
-        setOutput(JSON.stringify(formData, null, 2));
+
+        api.post("api/v1/login", formData)
+            .then((response) => {
+                console.log("Resposta do login:", response.data);
+            })
+            .catch((error) => {
+                console.error("Erro no login:", error);
+            });
     };
 
     return (
@@ -51,8 +56,6 @@ export function Form() {
 
                     <GoogleButton />
                 </form>
-
-                <pre>{output}</pre>
             </div>
         </>
     )
