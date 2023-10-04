@@ -1,4 +1,4 @@
-export function Inputs() {
+export function ModalSignUp() {
     return (
         <>
         </>

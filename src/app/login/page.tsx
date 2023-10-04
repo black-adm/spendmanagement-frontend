@@ -12,12 +12,15 @@ export default function Login() {
                 <div className="hidden lg:flex flex-col justify-between bg-gradient-to-l from-primary-orange via-medium-orange to-light-orange lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-xl">
                     <div className="flex items-center justify-start space-x-3">
                         <span className="bg-gradient-to-b from-black via-primary-black to-black rounded-full w-8 h-8"></span>
-                        <h4 className="flex items-center gap-x-2 font-semibold text-primary-black text-xl">
+                        <Link
+                            href="/"
+                            className="flex items-center gap-x-2 font-semibold text-primary-black text-xl"
+                        >
                             Spendmanagement
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-orange lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg>
-                        </h4>
+                        </Link>
                     </div>
-                    
+
                     <div className="flex flex-col space-y-5">
                         <h1 className="lg:text-3xl xl:text-5xl xl:leading-snug text-transparent bg-clip-text bg-gradient-to-tr from-yellow-100 via-yellow-200 to-yellow-orange font-extrabold">
                             Controle total das suas despesas de forma simplificada

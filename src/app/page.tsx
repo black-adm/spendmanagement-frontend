@@ -9,63 +9,43 @@ export default function Home() {
 
         <section className="mx-auto max-w-screen-2xl px-4 md:px-8">
           <div className="mb-8 flex flex-wrap justify-between md:mb-16">
-            <div className="mb-6 flex w-full flex-col justify-center sm:mb-12 lg:mb-0 lg:w-1/3 lg:pb-24 lg:pt-48">
-              <h1 className="mb-4 text-4xl font-bold text-black sm:text-5xl md:mb-8 md:text-6xl">
-                Find your
+
+            <div className="mb-6 flex w-full flex-col justify-center sm:mb-12 lg:mb-0 lg:w-1/3 lg:pb-24 lg:pt-32">
+              <h1 className="mb-4 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-light-orange via-medium-orange to-orange-200 sm:text-5xl md:mb-8 md:text-6xl">
+                Vamos gerenciar
                 <br />
-                style online
+                suas despesas?
               </h1>
-              <p className="max-w-md leading-relaxed text-gray-500 xl:text-lg">
-                This is a section of some simple filler text, also known as
-                placeholder text. It shares characteristics of real text.
+              <p className="max-w-md leading-relaxed text-gray-700 xl:text-lg">
+                Cansado de soluções mirabolantes e burocráticas para controlar o seu fluxo de custos ? <br />
+                Aqui as suas despesas pode ser gerenciada de forma simplificada.
               </p>
             </div>
 
             <div className="mb-12 flex w-full md:mb-16 lg:w-2/3">
               <div className="relative left-12 top-12 z-10 -ml-12 overflow-hidden rounded-lg bg-gray-100 shadow-lg md:left-16 md:top-16 lg:ml-0">
                 <img
-                  src="https://images.unsplash.com/photo-1542340916-951bb72c8f74?auto=format&q=75&fit=crop&w=550&h=550"
+                  src="https://plus.unsplash.com/premium_photo-1680721444874-6b52aa31e26c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
                   loading="lazy"
-                  alt="Photo by Kaung Htet"
+                  alt="Calculadora com despesas"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
               <div className="overflow-hidden rounded-lg bg-gray-100 shadow-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1586295166487-b265f7e83a7f?auto=format&q=75&fit=crop&w=550&h=550"
+                  src="https://plus.unsplash.com/premium_photo-1680721443657-a936f7cb9f37?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1530&q=80"
                   loading="lazy"
-                  alt="Photo by Manny Moreno"
+                  alt="Maquininha de cartão"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-            <div className="flex h-12 w-64 divide-x overflow-hidden rounded-lg border">
-              <a
-                href="#"
-                className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-              >
-                Men
-              </a>
-              <a
-                href="#"
-                className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-              >
-                Women
-              </a>
-              <a
-                href="#"
-                className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-              >
-                Teens
-              </a>
-            </div>
-
+          <div className="flex flex-col items-center justify-end gap-8 md:flex-row">
             <div className="flex items-center justify-center gap-4 lg:justify-start">
               <span className="text-sm font-semibold uppercase tracking-widest text-gray-400 sm:text-base">
-                Social
+              Acompanhe nossos canais
               </span>
               <span className="h-px w-12 bg-gray-200" />
               <div className="flex gap-4">
@@ -122,145 +102,123 @@ export default function Home() {
           </div>
         </section>
       </div>
-      
+
       <div className="bg-white py-6 sm:py-8 lg:py-12">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
           <div className="mb-10 md:mb-16">
-            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">
-              Selected
+            <h2 className="mb-4 text-center text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-lime-200 via-lime-400 to-primary-green md:mb-6 lg:text-5xl">
+              Painel de controle completo
             </h2>
-            <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
-              This is a section of some simple filler text, also known as
-              placeholder text. It shares some characteristics of a real written
-              text but is random or otherwise generated.
+            <p className="mx-auto max-w-screen-md text-center font-medium text-primary-black md:text-lg">
+              Com o nosso painel as suas despesas e custos te proporcionam uma experiência incrível para gerenciar suas despesas e visualizar métricas dos seus custos.
             </p>
           </div>
 
           <div className="grid gap-x-4 gap-y-8 sm:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4">
             <div>
-              <a
-                href="#"
-                className="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3"
-              >
+              <span className="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
                 <img
-                  src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&q=75&fit=crop&crop=top&w=600&h=700"
+                  src="https://images.unsplash.com/photo-1608222351212-18fe0ec7b13b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
                   loading="lazy"
-                  alt="Photo by Austin Wade"
+                  alt="Macbook Dashboard"
                   className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
                 />
-                <div className="absolute bottom-2 left-0 flex gap-2">
-                  <span className="rounded-r-lg bg-red-500 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white">
-                    -50%
+              </span>
+
+              <div className="flex items-start justify-between gap-2 px-2">
+                <div className="flex flex-col">
+                  <span className="text-lg font-bold text-medium-orange transition duration-100 hover:text-light-orange lg:text-xl">
+                    Dashboards
                   </span>
-                  <span className="rounded-lg bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-wider text-gray-800">
-                    New
+                  <span className="text-gray-600 text-sm">
+                    Visualizações atualizadas diariamente.
                   </span>
                 </div>
-              </a>
-              <div className="flex items-start justify-between gap-2 px-2">
-                <div className="flex flex-col">
-                  <a
-                    href="#"
-                    className="text-lg font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-xl"
-                  >
-                    Fancy Outfit
-                  </a>
-                  <span className="text-gray-500">by Fancy Brand</span>
-                </div>
+
                 <div className="flex flex-col items-end">
-                  <span className="font-bold text-gray-600 lg:text-lg">$19.99</span>
-                  <span className="text-sm text-red-500 line-through">$39.99</span>
+                  <span className="font-bold text-primary-green lg:text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bar-chart-3"><path d="M3 3v18h18" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></svg>
+                  </span>
                 </div>
               </div>
             </div>
-            
+
             <div>
-              <a
-                href="#"
-                className="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3"
-              >
+              <span className="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
                 <img
-                  src="https://images.unsplash.com/photo-1523359346063-d879354c0ea5?auto=format&q=75&fit=crop&crop=top&w=600&h=700"
+                  src="https://plus.unsplash.com/premium_photo-1661315406324-329dd27ebc34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
                   loading="lazy"
-                  alt="Photo by Nick Karvounis"
+                  alt="Relatório"
                   className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
                 />
-              </a>
+              </span>
+
               <div className="flex items-start justify-between gap-2 px-2">
                 <div className="flex flex-col">
-                  <a
-                    href="#"
-                    className="text-lg font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-xl"
-                  >
-                    Cool Outfit
-                  </a>
-                  <span className="text-gray-500">by Cool Brand</span>
+                  <span className="text-lg font-bold text-primary-orange transition duration-100 hover:text-light-orange lg:text-xl">
+                    Relatórios
+                  </span>
+                  <span className="text-gray-600 text-sm">Gere relatórios simples customizáveis.</span>
                 </div>
                 <div className="flex flex-col items-end">
-                  <span className="font-bold text-gray-600 lg:text-lg">$29.99</span>
+                  <span className="font-bold text-primary-green lg:text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-scroll-text"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4" /><path d="M19 17V5a2 2 0 0 0-2-2H4" /><path d="M15 8h-5" /><path d="M15 12h-5" /></svg>
+                  </span>
                 </div>
               </div>
             </div>
-            
+
             <div>
-              <a
-                href="#"
-                className="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3"
-              >
+              <span className="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
                 <img
-                  src="https://images.unsplash.com/photo-1548286978-f218023f8d18?auto=format&q=75&fit=crop&crop=top&w=600&h=700"
+                  src="https://images.unsplash.com/photo-1520695625556-c2a7bfe87a2f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
                   loading="lazy"
-                  alt="Photo by Austin Wade"
+                  alt="Homem contando o dinheiro"
                   className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
                 />
-              </a>
+              </span>
+
               <div className="flex items-start justify-between gap-2 px-2">
                 <div className="flex flex-col">
-                  <a
-                    href="#"
-                    className="text-lg font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-xl"
-                  >
-                    Nice Outfit
-                  </a>
-                  <span className="text-gray-500">by Nice Brand</span>
+                  <span className="text-lg font-bold text-primary-orange transition duration-100 hover:text-light-orange lg:text-xl">
+                    Controle total
+                  </span>
+                  <span className="text-gray-600 text-sm">Previna custos futuros inesperados.</span>
                 </div>
                 <div className="flex flex-col items-end">
-                  <span className="font-bold text-gray-600 lg:text-lg">$35.00</span>
+                  <span className="font-bold text-primary-green lg:text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-piggy-bank"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2h0V5z" /><path d="M2 9v1c0 1.1.9 2 2 2h1" /><path d="M16 11h0" /></svg>                  </span>
                 </div>
               </div>
             </div>
-            
+
             <div>
-              <a
-                href="#"
-                className="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3"
-              >
+              <span className="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
                 <img
-                  src="https://images.unsplash.com/photo-1566207274740-0f8cf6b7d5a5?auto=format&q=75&fit=crop&crop=top&w=600&h=700"
+                  src="https://images.unsplash.com/photo-1633265486064-086b219458ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
                   loading="lazy"
-                  alt="Photo by Vladimir Fedotov"
+                  alt="Cartão de crédito com o notebook"
                   className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
                 />
-              </a>
+              </span>
+
               <div className="flex items-start justify-between gap-2 px-2">
                 <div className="flex flex-col">
-                  <a
-                    href="#"
-                    className="text-lg font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-xl"
-                  >
-                    Lavish Outfit
-                  </a>
-                  <span className="text-gray-500">by Lavish Brand</span>
+                  <span className="text-lg font-bold text-primary-orange transition duration-100 hover:text-light-orange lg:text-xl">
+                    Segurança
+                  </span>
+                  <span className="text-gray-600 text-sm">Compras no seu cartão em tempo real.</span>
                 </div>
                 <div className="flex flex-col items-end">
-                  <span className="font-bold text-gray-600 lg:text-lg">$49.99</span>
+                  <span className="font-bold text-primary-green lg:text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-lock-keyhole"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg>                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       <div className="bg-white py-6 sm:py-8 lg:py-12">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
           <div className="flex flex-col overflow-hidden rounded-lg bg-gray-900 sm:flex-row md:h-80">
@@ -284,7 +242,7 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            
+
             <div className="order-first h-48 w-full bg-gray-700 sm:order-none sm:h-auto sm:w-1/2 lg:w-3/5">
               <img
                 src="https://images.unsplash.com/photo-1505846951821-e25bacf2eccd?auto=format&q=75&fit=crop&crop=top&w=1000&h=500"
@@ -296,8 +254,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-     
-     <Footer />
+
+      <Footer />
     </>
 
   )
