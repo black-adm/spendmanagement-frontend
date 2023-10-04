@@ -1,0 +1,76 @@
+import Link from "next/link";
+
+export function Header() {
+    return (
+        <header className="mb-8 border-b">
+            <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-8">
+                <Link
+                    href="/"
+                    className="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl"
+                    aria-label="logo"
+                >
+                    Spendmanagement
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-medium-orange lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg>
+                </Link>
+
+                <nav className="hidden gap-12 lg:flex 2xl:ml-16">
+                    <Link
+                        href="#"
+                        className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
+                    >
+                        Sobre
+                    </Link>
+
+                    <Link
+                        href="#"
+                        className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
+                    >
+                        Quem somos
+                    </Link>
+                </nav>
+
+                <div className="flex divide-x border-r sm:border-l">
+                    <Link
+                        href="/login"
+                        className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24"
+                    >
+                        <svg className="h-6 w-6 text-gray-800 lucide lucide-log-in" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><polyline points="10 17 15 12 10 7" /><line x1="15" x2="3" y1="12" y2="12" /></svg>
+                        <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+                            Login
+                        </span>
+                    </Link>
+
+                    <button
+                        className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24"
+                    >
+                        <svg className="h-6 w-6 text-gray-800 lucide lucide-user-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><line x1="19" x2="19" y1="8" y2="14" /><line x1="22" x2="16" y1="11" y2="11" /></svg>
+                        <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+                            Cadastrar
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:hidden"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6 text-gray-800"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
+                        <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+                            Menu
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </header>
+    )
+}
