@@ -23,11 +23,11 @@ pnpm install
 
 ## Iniciando o servidor local
 ```
-npm next dev
+npm run dev
 # ou
-yarn next dev
+yarn run dev
 # ou
-pnpm next dev
+pnpm run dev
 ```
 
 Abra no navegador [http://localhost:3000](http://localhost:3000).
