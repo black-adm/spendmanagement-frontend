@@ -29,7 +29,7 @@ export function Banner() {
 
                     <div className="order-first h-48 w-full bg-black sm:order-none sm:h-auto sm:w-1/2 lg:w-3/5">
                         <img
-                            src="https://images.unsplash.com/photo-1593672715438-d88a70629abe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+                            src="https://images.unsplash.com/photo-1614267118647-20c5ffa6a6e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80"
                             loading="lazy"
                             alt="Photo by Dom Hill"
                             className="h-full w-full object-cover object-center"

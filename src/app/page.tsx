@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header'
 import { Banner } from '@/components/Banner'
 import { Footer } from '@/components/Footer'
+import { LanguagesBanner } from '@/components/LanguagesBanner'
 
 export default function Home() {
   return (
@@ -46,7 +47,7 @@ export default function Home() {
           <div className="flex flex-col items-center justify-end gap-8 md:flex-row">
             <div className="flex items-center justify-center gap-4 lg:justify-start">
               <span className="text-sm font-semibold uppercase tracking-widest text-gray-400 sm:text-base">
-              Acompanhe nossos canais
+                Acompanhe nossos canais
               </span>
               <span className="h-px w-12 bg-gray-200" />
               <div className="flex gap-4">
@@ -104,14 +105,20 @@ export default function Home() {
         </section>
       </div>
 
-      <div className="bg-white py-6 sm:py-8 lg:py-16">
+      <div className="bg-white py-6 sm:py-10 lg:py-20"
+        style={{
+          backgroundImage: `url('https://static.vecteezy.com/system/resources/previews/010/250/587/non_2x/green-watercolor-brush-stroke-free-png.png')`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
         <div className="mx-auto max-w-screen-2xl px-4 py-6 md:px-8">
-          <div className="mb-10 md:mb-16">
-            <h2 className="mb-4 text-center text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-lime-200 via-lime-400 to-primary-green md:mb-6 lg:text-5xl">
+          <div className="relative mb-10 md:mb-16">
+            <h2 className="mb-4 text-center text-3xl font-bold text-transparent bg-clip-text bg-medium-orange md:mb-6 lg:text-5xl">
               Painel de controle completo
             </h2>
-            <p className="mx-auto max-w-screen-md text-center font-medium text-primary-black md:text-lg">
-              Com o nosso painel, suas despesas e custos te proporcionam uma experiência incrível para gerenciar suas despesas e visualizar métricas dos seus custos.
+            <p className="mx-auto max-w-screen-md text-center font-medium text-black md:text-lg">
+              Com o nosso painel, suas despesas e custos te proporcionam uma experiência incrível para gerenciar seus gastos e visualizar métricas dos seus custos.
             </p>
           </div>
 
@@ -219,8 +226,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-     <Banner />
+      <Banner />
+      <LanguagesBanner />
       <Footer />
     </>
 
