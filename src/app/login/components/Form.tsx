@@ -8,7 +8,7 @@ import { GoogleButton } from "./GoogleButton";
 
 import api from "@/api";
 
-type ValidateInputForm = z.infer<typeof validateInputFormSchema>
+export type ValidateInputForm = z.infer<typeof validateInputFormSchema>
 
 const validateInputFormSchema = z.object({
     email: z.string()

@@ -1,6 +1,12 @@
-'use client'
+import { UseFormRegister } from 'react-hook-form';
+import { ValidateInputForm } from './Form';
 
-export function Inputs({ register, errors }) {
+interface InputsProps {
+    register: UseFormRegister<ValidateInputForm>;
+    errors: any;
+  }
+
+export function Inputs({ register, errors }: InputsProps) {
 
     return (
         <>

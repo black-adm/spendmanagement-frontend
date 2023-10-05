@@ -1,7 +1,14 @@
+import { UseFormRegister } from 'react-hook-form';
+import { CreateInputForm } from './ModalSignUp';
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 
-export function InputsForm({ register, errors }) {
+interface InputsFormProps {
+  register: UseFormRegister<CreateInputForm>;
+  errors: any;
+}
+
+export function InputsForm({ register, errors }: InputsFormProps) {
     return (
         <>
             <div className="grid gap-2">

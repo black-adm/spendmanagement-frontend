@@ -13,10 +13,9 @@ import { InputsForm } from "./InputsForm"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-
 import api from "@/api";
 
-type CreateInputForm = z.infer<typeof createInputFormSchema>
+export type CreateInputForm = z.infer<typeof createInputFormSchema>
 
 const createInputFormSchema = z.object({
     email: z.string()
@@ -25,7 +24,7 @@ const createInputFormSchema = z.object({
     passsword: z.string()
         .nonempty('O campo de senha é obrigatório!')
         .min(6, 'A senha precisa de no mínimo 6 caracteres.'),
-        passwordConfirmation: z.string()
+    passwordConfirmation: z.string()
         .nonempty('Você deve repetir a sua senha!')
 })
 
