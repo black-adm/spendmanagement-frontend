@@ -1,33 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+  Aplicação desenvolvida para consumir as *API's* em **.Net** do projeto [`SpendsManagement`](https://github.com/fmattioli/spendmanagement-api). <br />
+  Todos os créditos ao desenvolvedor e meu amigo [`Felipe Mattioli`](https://github.com/fmattioli).
 
-## Getting Started
+## Projeto SpendManagement
+### Controle e gerencie seus gastos de forma simplificada.
+<p align="start">
+<img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
+<img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" />
+<img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+<img src="https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white" />
+</p> <br>
+<img src="https://i.ibb.co/sqjb6Jk/Captura-de-tela-de-2023-10-04-22-52-29.png" />
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Iniciando o projeto
+ Após clonar o repositório, acesse a raiz do projeto e digite : 
+```
+npm install
+# ou
+yarn install
+# ou
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Iniciando o servidor local
+```
+npm next dev
+# ou
+yarn next dev
+# ou
+pnpm next dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Abra no navegador [http://localhost:3000](http://localhost:3000).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Para que as funções *Backend* do projeto funcione, recomendo acessar o repositório dos micro-serviços desenvolvido pelo Felipe. Siga o passo a passo para baixar os containers na sua máquina e rodar corretamente.
 
 ## Deploy on Vercel
 
