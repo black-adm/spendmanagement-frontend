@@ -14,7 +14,7 @@ export function Footer() {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg>
                             Spendmanagement
                         </Link>
-                        <ul className="flex flex-wrap space-x-6 items-center mb-6 sm:mb-0">
+                        <ul className="flex flex-wrap justify-start sm:justify-end space-x-6 items-center ml-4 mt-6 sm:ml-0 sm:mb-0 sm:mt-0">
                             <li>
                                 <a
                                     href="https://github.com/fmattioli"
@@ -91,8 +91,8 @@ export function Footer() {
                             </li>
                         </ul>
                     </div>
-                    <hr className="my-6 border-b-gray-600 sm:mx-auto lg:my-8" />
-                    <span className="block text-sm text-primary-black sm:text-center">
+                    <hr className="my-6 border-b-primary-black sm:mx-auto lg:my-8" />
+                    <span className="block text-sm text-gray-500 sm:text-center">
                         © 2023{" "}
                         todos os direitos reservados.
                     </span>
