@@ -3,7 +3,7 @@ import Link from "next/link";
 export function Footer() {
     return (
         <>
-            <div className="max-w-full mx-auto">
+            <div className="max-w-full mx-auto pt-12">
                 <footer className="p-4 bg-white shadow md:px-28 md:py-8">
                     <div className="sm:flex sm:items-center sm:justify-between">
                         <Link
@@ -19,7 +19,7 @@ export function Footer() {
                                 <a
                                     href="https://github.com/fmattioli"
                                     target="_blank"
-                                    className="mr-4 text-sm text-black hover:text-primary-black md:mr-6"
+                                    className="mr-4 text-sm text-black hover:text-stone-900 md:mr-6"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ export function Footer() {
                                 <a
                                     href="https://www.facebook.com/felipe.mattioli"
                                     target="_blank"
-                                    className="mr-4 text-sm text-[#4267B2] hover:text-blue-500 hover:underline md:mr-6"
+                                    className="mr-4 text-sm text-[#4267B2] hover:text-blue-400 hover:underline md:mr-6"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
