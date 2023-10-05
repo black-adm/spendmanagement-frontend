@@ -11,14 +11,14 @@ import { ModalSignUp } from "./signUp/ModalSignUp";
 export function Header() {
     return (
         <header className="mb-8 border-b">
-            <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-8">
+            <div className="mx-auto flex max-w-screen-2xl items-center justify-between py-2 px-4 md:py-0 md:px-8">
                 <Link
                     href="/"
-                    className="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl"
+                    className="inline-flex items-center gap-2.5 text-lg sm:text-2xl font-bold text-black md:text-3xl"
                     aria-label="logo"
                 >
                     Spendmanagement
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-medium-orange lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-medium-orange h-6 w-6 md:h-10 md:w-10 lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg>
                 </Link>
 
                 <nav className="hidden gap-12 lg:flex 2xl:ml-16">
@@ -65,27 +65,6 @@ export function Header() {
                             <ModalSignUp />
                         </AlertDialogContent>
                     </AlertDialog>
-
-                    <button
-                        type="button"
-                        className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:hidden"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 text-gray-800"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                        <span className="hidden text-xs font-semibold text-gray-500 sm:block">
-                            Menu
-                        </span>
-                    </button>
                 </div>
             </div>
         </header>

@@ -1,7 +1,14 @@
 import Link from "next/link";
 import Head from "./head";
 
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogTrigger
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { Form } from "./components/Form";
+import { ModalSignUp } from "@/components/signUp/ModalSignUp";
 
 export default function Login() {
     return (
@@ -27,13 +34,17 @@ export default function Login() {
                         </h1>
                         <p className="text-lg font-light">Ainda não possui uma conta ?</p>
 
-                        <Link href="/cadastrar">
-                            <button type="button" className="flex items-center gap-x-2 px-8 py-4 rounded-lg font-semibold bg-transparent border-[2.5px] border-black text-black hover:bg-black hover:text-white hover:border-none focus:bg-black focus:text-white focus:border-none transition-colors"
-                            >
-                                Criar uma nova conta
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-plus-2"><path d="M14 19a6 6 0 0 0-12 0" /><circle cx="8" cy="9" r="4" /><line x1="19" x2="19" y1="8" y2="14" /><line x1="22" x2="16" y1="11" y2="11" /></svg>
-                            </button>
-                        </Link>
+                        <AlertDialog>
+                            <AlertDialogTrigger>
+                                <Button className="flex items-center gap-x-2 px-8 py-6 rounded-lg font-semibold bg-transparent border-[2.5px] border-black text-black hover:bg-black hover:text-white hover:border-none focus:bg-black focus:text-white focus:border-none transition-colors">
+                                    Criar uma nova conta
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user-plus-2"><path d="M14 19a6 6 0 0 0-12 0" /><circle cx="8" cy="9" r="4" /><line x1="19" x2="19" y1="8" y2="14" /><line x1="22" x2="16" y1="11" y2="11" /></svg>
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <ModalSignUp />
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </div>
                     <p className="font-medium">© 2023 - Todos os direitos reservados.</p>
                 </div>
@@ -53,12 +64,16 @@ export default function Login() {
                         </div>
 
                         <div className="flex items-center space-x-2">
-                            <Link
-                                href="/cadastrar"
-                                className="underline text-xs tracking-tight font-medium text-sky-600"
-                            >
-                                Não possui conta?
-                            </Link>
+                            <AlertDialog>
+                                <AlertDialogTrigger>
+                                    <Button className="bg-sky-200 text-xs tracking-tight font-medium text-sky-600">
+                                        Não possui conta?
+                                    </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <ModalSignUp />
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </div>
                     </div>
                     <Form />
