@@ -16,16 +16,18 @@ export function Header() {
                 <nav className="hidden gap-12 lg:flex 2xl:ml-16">
                     <Link
                         href="#"
-                        className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
+                        className="inline-flex items-center gap-x-1 text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
                     >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green lucide lucide-info"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
                         Sobre
                     </Link>
 
                     <Link
                         href="#"
-                        className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
+                        className="inline-flex items-center gap-x-1 text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
                     >
-                        Quem somos
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green lucide lucide-terminal-square"><path d="m7 11 2-2-2-2" /><path d="M11 13h4" /><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /></svg>                 
+                            Desenvolvedores
                     </Link>
                 </nav>
 
