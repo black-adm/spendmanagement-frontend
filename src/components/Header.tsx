@@ -1,5 +1,13 @@
 import Link from "next/link";
 
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogTrigger
+} from "./ui/alert-dialog";
+import { Button } from "./ui/button";
+import { ModalSignUp } from "./signUp/ModalSignUp";
+
 export function Header() {
     return (
         <header className="mb-8 border-b">
@@ -26,8 +34,8 @@ export function Header() {
                         href="#"
                         className="inline-flex items-center gap-x-1 text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green lucide lucide-terminal-square"><path d="m7 11 2-2-2-2" /><path d="M11 13h4" /><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /></svg>                 
-                            Desenvolvedores
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green lucide lucide-terminal-square"><path d="m7 11 2-2-2-2" /><path d="M11 13h4" /><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /></svg>
+                        Desenvolvedores
                     </Link>
                 </nav>
 
@@ -42,14 +50,21 @@ export function Header() {
                         </span>
                     </Link>
 
-                    <button
-                        className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24"
-                    >
-                        <svg className="h-6 w-6 text-gray-800 lucide lucide-user-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><line x1="19" x2="19" y1="8" y2="14" /><line x1="22" x2="16" y1="11" y2="11" /></svg>
-                        <span className="hidden text-xs font-semibold text-gray-500 sm:block">
-                            Cadastrar
-                        </span>
-                    </button>
+                    <AlertDialog>
+                        <AlertDialogTrigger>
+                            <Button
+                                className="bg-white rounded-none flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24"
+                            >
+                                <svg className="h-6 w-6 text-gray-800 lucide lucide-user-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><line x1="19" x2="19" y1="8" y2="14" /><line x1="22" x2="16" y1="11" y2="11" /></svg>
+                                <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+                                    Cadastrar
+                                </span>
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <ModalSignUp />
+                        </AlertDialogContent>
+                    </AlertDialog>
 
                     <button
                         type="button"

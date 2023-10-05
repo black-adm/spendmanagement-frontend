@@ -43,10 +43,13 @@ export default function Login() {
                     <div className="flex lg:hidden justify-between items-center w-full py-4">
                         <div className="flex items-center justify-start space-x-2">
                             <span className="bg-gradient-to-b from-light-orange via-medium-orange to-primary-orange rounded-full w-5 h-5"></span>
-                            <h4 className="flex items-center gap-x-1 font-semibold text-xs">
+                            <Link
+                                href="/"
+                                className="flex items-center gap-x-1 font-semibold text-xs"
+                            >
                                 Spendmanagement
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-medium-orange lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg>
-                            </h4>
+                            </Link>
                         </div>
 
                         <div className="flex items-center space-x-2">

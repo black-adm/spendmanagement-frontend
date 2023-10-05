@@ -8,7 +8,7 @@ import { GoogleButton } from "./GoogleButton";
 
 import api from "@/api";
 
-type ValidateIinputForm = z.infer<typeof validateInputFormSchema>
+type ValidateInputForm = z.infer<typeof validateInputFormSchema>
 
 const validateInputFormSchema = z.object({
     email: z.string()
@@ -25,7 +25,7 @@ export function Form() {
         register,
         watch,
         formState: { errors },
-    } = useForm<ValidateIinputForm>({
+    } = useForm<ValidateInputForm>({
         resolver: zodResolver(validateInputFormSchema)
     })
 
