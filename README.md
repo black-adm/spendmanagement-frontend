@@ -1,7 +1,7 @@
   Aplicação desenvolvida para consumir as *API's* em **.Net** do projeto [`SpendsManagement`](https://github.com/fmattioli/spendmanagement-api). <br />
   Todos os créditos ao desenvolvedor e meu amigo [`Felipe Mattioli`](https://github.com/fmattioli).
 
-## Projeto SpendManagement
+## Projeto SpendManagement :moneybag:
 ### Controle e gerencie seus gastos de forma simplificada.
 <p align="start">
 <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
@@ -33,9 +33,3 @@ pnpm next dev
 Abra no navegador [http://localhost:3000](http://localhost:3000).
 
 Para que as funções *Backend* do projeto funcione, recomendo acessar o repositório dos micro-serviços desenvolvido pelo Felipe. Siga o passo a passo para baixar os containers na sua máquina e rodar corretamente.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
