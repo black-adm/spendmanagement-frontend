@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Banner() {
     return (
-        <div className="bg-black py-6 sm:py-8 lg:py-20 lg:px-5"
+        <div className="bg-light-gray w-full py-6 sm:py-8 lg:py-20 lg:px-5"
             style={{
                 backgroundImage: `url('https://i.ibb.co/j8KG5Mb/gold-coins-illustration-background-free-vector-removebg-preview.png')`,
                 backgroundSize: 'contain',

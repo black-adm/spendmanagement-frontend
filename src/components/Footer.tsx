@@ -4,17 +4,46 @@ export function Footer() {
     return (
         <>
             <div className="max-w-full mx-auto pt-12">
-                <footer className="p-4 bg-white shadow md:px-28 md:py-8">
+                <footer className="p-4 bg-white shadow md:px-28 md:py-8"
+                    style={{
+                        backgroundImage: `url('https://static.vecteezy.com/ti/vetor-gratis/p3/370071-mao-colorida-pintada-em-aquarela-de-fundo-pinceladas-de-aquarela-verde-textura-e-fundo-abstratos-da-aguarela-para-o-projeto-fundo-aquarela-sobre-papel-texturizado-vetor.jpg')`,
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                    }}
+                >
+                    <Link
+                        href="/"
+                        className="pb-8 inline-flex items-center gap-2 text-xl font-bold text-medium-orange md:text-2xl"
+                        aria-label="logo"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg>
+                        Spendmanagement
+                    </Link>
+
                     <div className="sm:flex sm:items-center sm:justify-between">
-                        <Link
-                            href="/"
-                            className="inline-flex items-center gap-2 text-xl font-bold text-medium-orange md:text-2xl"
-                            aria-label="logo"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green lucide lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 18V6" /></svg>
-                            Spendmanagement
-                        </Link>
-                        <ul className="flex flex-wrap justify-start sm:justify-end space-x-6 items-center ml-4 mt-6 sm:ml-0 sm:mb-0 sm:mt-0">
+                        <form className="sm:col-span-2 px-4 sm:px-0">
+                            <h1 className="max-w-lg text-base sm:text-xl font-semibold tracking-tight text-primary-black xl:text-2xl">
+                                Dúvidas ? Contate nosso time de suporte
+                            </h1>
+
+                            <div className="flex flex-col mx-auto mt-6 space-y-6 md:space-y-0 md:flex-row">
+                                <input
+                                    id="email"
+                                    type="text"
+                                    className="px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+                                    placeholder="Informe seu e-mail"
+                                />
+
+                                <button
+                                    type="submit"
+                                    className="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80"
+                                >
+                                    Enviar
+                                </button>
+                            </div>
+                        </form>
+
+                        <ul className="flex flex-wrap justify-start sm:justify-end space-x-6 items-center ml-4 pt-16 sm:ml-0 sm:mb-0 sm:mt-0">
                             <li>
                                 <a
                                     href="https://github.com/fmattioli"
@@ -92,9 +121,13 @@ export function Footer() {
                         </ul>
                     </div>
                     <hr className="my-6 border-b-primary-black sm:mx-auto lg:my-8" />
-                    <span className="block text-sm text-gray-500 sm:text-center">
-                        © 2023{" "}
-                        todos os direitos reservados.
+                    <span className="flex items-center justify-center">
+                        <p className="text-xs sm:text-sm text-primary-black font-medium text-center pb-4 sm:pb-0">
+                            Spendmanagement © 2023 - {" "}
+                            Todos os direitos reservados.
+                            <br />
+                            Guarulhos - SP, Brasil.
+                        </p>
                     </span>
                 </footer>
             </div>
