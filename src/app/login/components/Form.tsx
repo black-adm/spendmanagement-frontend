@@ -37,7 +37,7 @@ export function Form() {
 
         api.post("api/v1/login", formData)
             .then((response) => {
-                console.log("Resposta do login:", response.data);
+                console.log("Sucesso:", response.data);
             })
             .catch((error) => {
                 console.error("Erro no login:", error);

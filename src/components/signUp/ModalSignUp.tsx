@@ -50,10 +50,10 @@ export function ModalSignUp() {
 
         api.post("api/v1/signUp", formData)
             .then((response) => {
-                console.log("Resposta do login:", response.data);
+                console.log("Sucesso:", response.data);
             })
             .catch((error) => {
-                console.error("Erro no login:", error);
+                console.error("Erro ao cadastrar:", error);
             });
     };
 
