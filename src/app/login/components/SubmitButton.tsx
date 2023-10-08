@@ -1,6 +1,4 @@
-type loadingProps = {
-    loading: any;
-}
+import { loadingProps } from "@/@types/loadingType"
 
 export function SubmitButton({ loading }: loadingProps) {
     return (

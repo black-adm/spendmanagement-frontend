@@ -23,6 +23,7 @@ const validateInputFormSchema = z.object({
 
 export function Form() {
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const {
         handleSubmit,
@@ -42,10 +43,11 @@ export function Form() {
 
         api.post("api/v1/login", formData)
             .then((response) => {
-                console.log("Sucesso:", response.data);
+                console.log(response.data);
             })
             .catch((error) => {
-                console.error("Erro no login:", error);
+                setError(error);
+                console.error(error);
             })
             .finally(() => {
                 setLoading(false)
@@ -68,6 +70,15 @@ export function Form() {
                         errors={errors}
                     />
 
+                    {error && (
+                        <div className="flex flex-col pt-2 pl-3">
+                            <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1 lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+                                {error.message}
+                            </p>
+                        </div>
+                    )}
+
                     <div className="pt-0 sm:pt-2">
                         <SubmitButton
                             loading={loading}
@@ -80,7 +91,9 @@ export function Form() {
                         <span className="w-full border border-black"></span>
                     </div>
 
-                    <GoogleButton />
+                    <GoogleButton
+                        loading={loading}
+                    />
                 </form >
             </div >
         </>

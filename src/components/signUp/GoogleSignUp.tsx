@@ -1,8 +1,5 @@
 import { Button } from "../ui/button";
-
-type loadingProps = {
-    loading: any;
-}
+import { loadingProps } from "@/@types/loadingType"
 
 export function GoogleSignUp({ loading }: loadingProps) {
     return (
