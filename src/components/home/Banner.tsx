@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Banner() {
     return (
-        <div className="bg-light-gray w-full py-6 sm:py-8 lg:py-20 lg:px-5"
+        <div className="bg-white w-full py-6 sm:py-8 lg:py-20 lg:px-5"
             style={{
                 backgroundImage: `url('https://i.ibb.co/j8KG5Mb/gold-coins-illustration-background-free-vector-removebg-preview.png')`,
                 backgroundSize: 'contain',
@@ -10,7 +10,7 @@ export function Banner() {
             }}
         >
             <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-                <div className="flex flex-col overflow-hidden rounded-lg bg-gradient-to-b from-primary-black to-black sm:flex-row md:h-80">
+                <div className="bg-gradient-to-b from-primary-black to-black flex flex-col overflow-hidden rounded-lg sm:flex-row md:h-80">
                     <div className="flex w-full flex-col p-4 sm:w-1/2 sm:p-8 lg:w-2/5">
                         <h2 className="mb-4 text-xl font-bold text-yellow-orange md:text-2xl lg:text-4xl">
                             Assinatura anual

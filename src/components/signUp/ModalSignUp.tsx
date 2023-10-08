@@ -1,6 +1,6 @@
 "use client"
 
-import api from '@/api'
+import { api } from '@/api'
 import {
     Card,
     CardContent,
@@ -41,8 +41,7 @@ export function ModalSignUp() {
         resolver: zodResolver(createInputFormSchema)
     })
 
-    function createData(e) {
-        e.preventDefault();
+    function createData() {
         const formData = {
             email: watch('email'),
             passsword: watch('passsword'),

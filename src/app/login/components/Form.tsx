@@ -6,7 +6,7 @@ import { z } from "zod"
 import { Inputs } from "./Inputs";
 import { GoogleButton } from "./GoogleButton";
 
-import api from "@/api";
+import { api } from "@/api";
 
 export type ValidateInputForm = z.infer<typeof validateInputFormSchema>
 
@@ -29,9 +29,7 @@ export function Form() {
         resolver: zodResolver(validateInputFormSchema)
     })
 
-    function loginData(e) {
-        e.preventDefault();
-
+    function loginData() {
         const formData = {
             email: watch('email'),
             password: watch('password'),
