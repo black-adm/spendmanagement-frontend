@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import api from "@/api";
+import mailApi from "@/api";
 
 export type ValidateInput = z.infer<typeof validateInputSchema>
 
@@ -28,14 +28,12 @@ export function ContactForm() {
         resolver: zodResolver(validateInputSchema)
     })
 
-    function sendMail(e) {
-        e.preventDefault();
-
+    function sendMail() {
         const inputData = {
             to: watch('to'),
         };
 
-        api.post("v1/api/Email", inputData)
+        mailApi.post("v1/api/Email/subscribe", inputData)
             .then((response) => {
                 setSucess(response.data)
                 console.log("Sucesso :", response.data);

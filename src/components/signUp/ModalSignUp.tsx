@@ -43,7 +43,6 @@ export function ModalSignUp() {
 
     function createData(e) {
         e.preventDefault();
-
         const formData = {
             email: watch('email'),
             passsword: watch('passsword'),
