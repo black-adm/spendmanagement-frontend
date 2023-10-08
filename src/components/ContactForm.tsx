@@ -1,20 +1,24 @@
 "use client"
 
-import { Input } from "./ui/input";
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 import api from "@/api";
 
 export type ValidateInput = z.infer<typeof validateInputSchema>
 
 const validateInputSchema = z.object({
-    email: z.string()
+    to: z.string()
         .nonempty('O campo de e-mail é obrigatório!')
         .email('Formato de e-mail inválido!'),
 })
 
 export function ContactForm() {
+    const [sucess, setSucess] = useState('')
+
     const {
         handleSubmit,
         register,
@@ -24,13 +28,16 @@ export function ContactForm() {
         resolver: zodResolver(validateInputSchema)
     })
 
-    function sendMail() {
+    function sendMail(e) {
+        e.preventDefault();
+
         const inputData = {
-            email: watch('email'),
+            to: watch('to'),
         };
 
-        api.post("api/v1/Email", inputData)
+        api.post("v1/api/Email", inputData)
             .then((response) => {
+                setSucess(response.data)
                 console.log("Sucesso :", response.data);
             })
             .catch((error) => {
@@ -54,22 +61,27 @@ export function ContactForm() {
                         type="text"
                         className="px-4 py-2 text-primary-black bg-white border rounded-md focus:border-medium-orange focus:outline-none"
                         placeholder="Informe seu e-mail"
-                        {...register('email')}
+                        {...register('to')}
                     />
 
-                    {errors.email &&
-                        <span className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
+                    {errors.to &&
+                        <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield-alert"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
-                            {errors.email.message}
-                        </span>
+                            {errors.to.message}
+                        </p>
                     }
 
-                    <button
+                    {sucess &&
+                        <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>                        </p>
+                    }
+
+                    <Button
                         type="submit"
                         className="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-primary-orange transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-black rounded-md hover:bg-primary-black"
                     >
                         Enviar
-                    </button>
+                    </Button>
                 </div>
             </form>
         </>

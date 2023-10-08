@@ -41,7 +41,9 @@ export function ModalSignUp() {
         resolver: zodResolver(createInputFormSchema)
     })
 
-    function createData() {
+    function createData(e) {
+        e.preventDefault();
+
         const formData = {
             email: watch('email'),
             passsword: watch('passsword'),

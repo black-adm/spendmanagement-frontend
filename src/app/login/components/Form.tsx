@@ -29,7 +29,9 @@ export function Form() {
         resolver: zodResolver(validateInputFormSchema)
     })
 
-    function loginData() {
+    function loginData(e) {
+        e.preventDefault();
+
         const formData = {
             email: watch('email'),
             password: watch('password'),
