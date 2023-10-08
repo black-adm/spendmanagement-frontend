@@ -4,10 +4,9 @@ import { ValidateInputForm } from './Form';
 interface InputsProps {
     register: UseFormRegister<ValidateInputForm>;
     errors: any;
-  }
+}
 
 export function Inputs({ register, errors }: InputsProps) {
-
     return (
         <>
             <div className="flex items-center border-2 border-black rounded-lg">
