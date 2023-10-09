@@ -69,7 +69,7 @@ export function ContactForm() {
 
                     <Button
                         type="submit"
-                        className={`flex items-center w-full px-6 py-2.5 text-sm font-medium tracking-wider text-yellow-orange transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-black rounded-md hover:bg-primary-black ${loading ? "opacity-50 cursor-not-allowed" : ""
+                        className={`flex items-center w-full px-6 py-2.5 text-sm font-medium tracking-wider text-yellow-orange transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-black rounded-md hover:bg-primary-black ${loading ? "opacity-20 cursor-not-allowed" : ""
                             }`}
                         disabled={loading}
                     >

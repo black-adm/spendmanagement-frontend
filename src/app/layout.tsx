@@ -1,12 +1,13 @@
 import '../styles/globals.css'
-import { Inter } from 'next/font/google'
+
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'SpendManagement - Gerencie seus gastos',
-  description: 'Controle o fluxo dos seus custos e gastos de forma simplificada.',
+  title: 'Spendmanagement',
+  description: 'Generencie e controle seus gastos.',
 }
 
 export default function RootLayout({
@@ -16,9 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
