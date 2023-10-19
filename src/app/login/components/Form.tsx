@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -9,6 +9,7 @@ import { GoogleButton } from "./GoogleButton";
 
 import { api } from "@/api";
 import { SubmitButton } from "./SubmitButton"
+import { AuthContext } from "@/contexts/AuthContext"
 
 export type ValidateInputForm = z.infer<typeof validateInputFormSchema>
 
@@ -24,6 +25,7 @@ const validateInputFormSchema = z.object({
 export function Form() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
+    const { signIn } = useContext(AuthContext)
 
     const {
         handleSubmit,
@@ -34,8 +36,10 @@ export function Form() {
         resolver: zodResolver(validateInputFormSchema)
     })
 
-    function loginData() {
+    async function loginData(data) {
         setLoading(true)
+        await signIn(data)
+        
         const formData = {
             email: watch('email'),
             password: watch('password'),

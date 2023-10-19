@@ -12,7 +12,7 @@ export default function Home() {
         <section className="mx-auto max-w-screen-2xl px-4 md:px-8">
           <div className="mb-8 flex flex-wrap justify-between md:mb-16">
 
-            <div className="mb-6 flex w-full flex-col justify-center sm:mb-12 lg:mb-0 lg:w-1/3 lg:pb-24 lg:pt-32">
+            <div className="mb-6 px-4 flex w-full flex-col justify-center sm:mb-12 lg:mb-0 lg:w-1/3 lg:pb-24 lg:pt-32">
               <h1 className="mb-4 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-light-orange via-medium-orange to-orange-200 sm:text-5xl md:mb-8 md:text-6xl">
                 Vamos gerenciar
                 <br />

@@ -41,7 +41,7 @@ export function ContactForm() {
                 console.log(response.data)
             })
             .catch((error) => {
-                console.error("Erro no login:", error)
+                console.error("Internal server error:", error)
             })
             .finally(() => {
                 setLoading(false)
