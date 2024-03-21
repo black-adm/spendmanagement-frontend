@@ -6,11 +6,7 @@ import { CreateInputForm } from './register-modal'
 
 interface RegisterFormProps {
   register: UseFormRegister<CreateInputForm>
-  errors?: {
-    email?: { message: string }
-    password?: { message: string }
-    passwordConfirmation?: { message: string }
-  }
+  errors: any
 }
 
 export function RegisterForm({ register, errors }: RegisterFormProps) {
@@ -27,7 +23,7 @@ export function RegisterForm({ register, errors }: RegisterFormProps) {
           {...register('email')}
         />
       </div>
-      {errors?.email && (
+      {errors.email && (
         <span className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
           <ShieldAlert className="size-4" />
           {errors.email.message}
@@ -46,7 +42,7 @@ export function RegisterForm({ register, errors }: RegisterFormProps) {
           {...register('password')}
         />
       </div>
-      {errors?.password && (
+      {errors.password && (
         <span className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
           <ShieldAlert className="size-4" />
           {errors.password.message}
@@ -64,7 +60,7 @@ export function RegisterForm({ register, errors }: RegisterFormProps) {
           {...register('passwordConfirmation')}
         />
       </div>
-      {errors?.passwordConfirmation && (
+      {errors.passwordConfirmation && (
         <span className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
           <ShieldAlert className="size-4" />
           {errors.passwordConfirmation.message}

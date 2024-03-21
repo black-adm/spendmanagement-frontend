@@ -12,13 +12,6 @@ import { SubmitButton } from './login-button'
 import { LoginGoogleButton } from './login-google-button'
 import { LoginInputs } from './login-inputs'
 
-interface DataProps {
-  email: string
-  password: string
-}
-
-export type ValidateInputForm = z.infer<typeof validateInputFormSchema>
-
 const validateInputFormSchema = z.object({
   email: z
     .string()
@@ -29,6 +22,8 @@ const validateInputFormSchema = z.object({
     .nonempty('O campo de senha é obrigatório!')
     .min(6, 'A senha precisa de no mínimo 6 caracteres.'),
 })
+
+export type ValidateInputForm = z.infer<typeof validateInputFormSchema>
 
 export function Form() {
   const [loading, setLoading] = useState(false)
@@ -44,7 +39,7 @@ export function Form() {
     resolver: zodResolver(validateInputFormSchema),
   })
 
-  async function loginData(data: DataProps) {
+  async function loginData(data: any) {
     setLoading(true)
 
     const formData = {

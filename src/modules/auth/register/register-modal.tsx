@@ -20,8 +20,6 @@ import { RegisterButton } from './register-button'
 import { RegisterForm } from './register-form'
 import { RegisterGoogleButton } from './register-google-button'
 
-export type CreateInputForm = z.infer<typeof createInputFormSchema>
-
 const createInputFormSchema = z.object({
   email: z
     .string()
@@ -33,6 +31,8 @@ const createInputFormSchema = z.object({
     .min(6, 'A senha precisa de no mínimo 6 caracteres.'),
   passwordConfirmation: z.string().nonempty('Você deve repetir a sua senha!'),
 })
+
+export type CreateInputForm = z.infer<typeof createInputFormSchema>
 
 export function RegisterModal() {
   const [loading, setLoading] = useState(false)

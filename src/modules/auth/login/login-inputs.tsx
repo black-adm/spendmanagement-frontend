@@ -4,10 +4,7 @@ import { ValidateInputForm } from './login-form'
 
 interface LoginInputsProps {
   register: UseFormRegister<ValidateInputForm>
-  errors?: {
-    email?: { message: string }
-    password?: { message: string }
-  }
+  errors: any
 }
 
 export function LoginInputs({ register, errors }: LoginInputsProps) {
@@ -22,7 +19,7 @@ export function LoginInputs({ register, errors }: LoginInputsProps) {
           {...register('email')}
         />
       </div>
-      {errors?.email && (
+      {errors.email && (
         <span className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
           <ShieldAlert className="size-4" />
           {errors.email.message}
@@ -38,7 +35,7 @@ export function LoginInputs({ register, errors }: LoginInputsProps) {
           {...register('password')}
         />
       </div>
-      {errors?.password && (
+      {errors.password && (
         <span className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
           <ShieldAlert className="size-4" />
           {errors.password.message}
