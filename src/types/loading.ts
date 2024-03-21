@@ -1,3 +1,3 @@
 export type loadingProps = {
-    loading: any;
+  loading: boolean
 }

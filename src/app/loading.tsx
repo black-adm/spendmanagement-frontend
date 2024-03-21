@@ -1,5 +1,5 @@
-import { LoadingSkeleton } from "@/components/LoadingSkeleton";
+import { HomeSkeleton } from '@/modules/home/home-skeleton'
 
 export default function Loading() {
-    return <LoadingSkeleton />
-  }
+  return <HomeSkeleton />
+}
