@@ -1,13 +1,12 @@
 'use client'
 
 import { server } from '@/lib/axios'
-import { errorMessageProps } from '@/types/error-message'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CircleCheckBig, TriangleAlert } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { toast, Toaster } from 'sonner'
 import { SubmitButton } from './login-button'
 import { LoginGoogleButton } from './login-google-button'
 import { LoginInputs } from './login-inputs'
@@ -15,32 +14,31 @@ import { LoginInputs } from './login-inputs'
 const validateInputFormSchema = z.object({
   email: z
     .string()
-    .nonempty('O campo de e-mail é obrigatório!')
-    .email('Formato de e-mail inválido!'),
+    .min(1, 'digite um endereço de e-mail válido.')
+    .email('formato de e-mail inválido.'),
   password: z
     .string()
-    .nonempty('O campo de senha é obrigatório!')
-    .min(6, 'A senha precisa de no mínimo 6 caracteres.'),
+    .min(1, 'o campo de senha é obrigatório.')
+    .min(6, 'a senha precisa de no mínimo 6 caracteres.'),
 })
 
 export type ValidateInputForm = z.infer<typeof validateInputFormSchema>
 
 export function Form() {
-  const [loading, setLoading] = useState(false)
-  const [sucess, setSucess] = useState('')
-  const [error, setError] = useState<errorMessageProps>()
+  const [loadingSubmit, setLoadingSubmit] = useState(false)
+  const [loadingGoogle, setLoadingGoogle] = useState(false)
 
   const {
     handleSubmit,
     register,
     watch,
-    formState: { errors },
+    formState: { errors = {} },
   } = useForm<ValidateInputForm>({
     resolver: zodResolver(validateInputFormSchema),
   })
 
-  async function loginData(data: any) {
-    setLoading(true)
+  async function loginData() {
+    setLoadingSubmit(true)
 
     const formData = {
       email: watch('email'),
@@ -50,13 +48,15 @@ export function Form() {
     server
       .post('/api/v1/login', formData)
       .then((response) => {
-        setSucess(response.data)
+        console.log(response.data)
+        toast.success('Login efetuado com sucesso!')
       })
       .catch((error) => {
-        setError(error)
+        setLoadingSubmit(false)
         console.error(error)
+        toast.error('Erro ao realizar login, tente novamente!')
       })
-      .finally(() => setLoading(false))
+      .finally(() => setLoadingSubmit(false))
   }
 
   return (
@@ -75,26 +75,9 @@ export function Form() {
           className="flex flex-col max-w-md space-y-5"
         >
           <LoginInputs register={register} errors={errors} />
-          {sucess && (
-            <div className="flex flex-col pt-2 pl-3">
-              <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-green">
-                Login realizado
-                <CircleCheckBig className="size-4" />
-              </p>
-            </div>
-          )}
-
-          {error && (
-            <div className="flex flex-col pt-2 pl-3">
-              <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
-                <TriangleAlert className="size-4" />
-                {error.message}
-              </p>
-            </div>
-          )}
-
+          <Toaster richColors position="bottom-right" />
           <div className="pt-0 sm:pt-2">
-            <SubmitButton loading={loading} />
+            <SubmitButton loading={loadingSubmit} />
           </div>
 
           <div className="flex justify-center items-center">
@@ -102,8 +85,7 @@ export function Form() {
             <span className="px-4">Ou</span>
             <span className="w-full border border-black"></span>
           </div>
-
-          <LoginGoogleButton loading={loading} />
+          <LoginGoogleButton loading={loadingGoogle} />
         </form>
       </div>
     </>

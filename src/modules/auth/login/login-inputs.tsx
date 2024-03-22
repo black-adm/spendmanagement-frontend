@@ -1,10 +1,10 @@
-import { KeySquare, Mail, ShieldAlert } from 'lucide-react'
-import { UseFormRegister } from 'react-hook-form'
-import { ValidateInputForm } from './login-form'
+import { KeySquare, Mail, ShieldAlert } from 'lucide-react';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { ValidateInputForm } from './login-form';
 
 interface LoginInputsProps {
   register: UseFormRegister<ValidateInputForm>
-  errors: any
+  errors: FieldErrors<ValidateInputForm>
 }
 
 export function LoginInputs({ register, errors }: LoginInputsProps) {
@@ -20,14 +20,14 @@ export function LoginInputs({ register, errors }: LoginInputsProps) {
         />
       </div>
       {errors.email && (
-        <span className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
-          <ShieldAlert className="size-4" />
+        <span className="flex items-center gap-x-2.5 text-xs font-medium tracking-tight text-primary-red">
+          <ShieldAlert className="h-4 w-4" />
           {errors.email.message}
         </span>
       )}
 
       <div className="flex items-center border-2 border-black rounded-lg">
-        <KeySquare className="size-6" />
+        <KeySquare className="ml-4 size-6" />
         <input
           type="password"
           placeholder="Digite sua senha"
@@ -36,8 +36,8 @@ export function LoginInputs({ register, errors }: LoginInputsProps) {
         />
       </div>
       {errors.password && (
-        <span className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
-          <ShieldAlert className="size-4" />
+        <span className="flex items-center gap-x-2.5 text-xs font-medium tracking-tight text-primary-red">
+          <ShieldAlert className="h-4 w-4" />
           {errors.password.message}
         </span>
       )}

@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button'
-import { loadingProps } from '@/types/loading'
+import { LoadingProps } from '@/types/loading'
 import { Loader } from 'lucide-react'
 
-export function RegisterButton({ loading }: loadingProps) {
+export function RegisterButton({ loading }: LoadingProps) {
   return (
     <>
       <Button

@@ -10,12 +10,13 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { server } from '@/lib/axios'
-import { errorMessageProps } from '@/types/error-message'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CircleCheckBig, TriangleAlert } from 'lucide-react'
+
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
+
 import { RegisterButton } from './register-button'
 import { RegisterForm } from './register-form'
 import { RegisterGoogleButton } from './register-google-button'
@@ -23,21 +24,23 @@ import { RegisterGoogleButton } from './register-google-button'
 const createInputFormSchema = z.object({
   email: z
     .string()
-    .nonempty('O campo de e-mail é obrigatório!')
-    .email('Formato de e-mail inválido!'),
+    .min(1, 'digite um endereço de e-mail válido.')
+    .email('formato de e-mail inválido.'),
   password: z
     .string()
-    .nonempty('O campo de senha é obrigatório!')
-    .min(6, 'A senha precisa de no mínimo 6 caracteres.'),
-  passwordConfirmation: z.string().nonempty('Você deve repetir a sua senha!'),
+    .min(1, 'o campo de senha é obrigatório.')
+    .min(6, 'a senha precisa de no mínimo 6 caracteres.'),
+  passwordConfirmation: z
+    .string()
+    .min(1, 'você deve repetir a sua senha.')
+    .min(6, 'a confirmação da senha precisa de 6 caracteres.'),
 })
 
 export type CreateInputForm = z.infer<typeof createInputFormSchema>
 
 export function RegisterModal() {
-  const [loading, setLoading] = useState(false)
-  const [sucess, setSucess] = useState('')
-  const [error, setError] = useState<errorMessageProps>()
+  const [loadingSubmit, setLoadingSubmit] = useState(false)
+  const [loadingGoogle, setLoadingGoogle] = useState(false)
 
   const {
     handleSubmit,
@@ -49,25 +52,25 @@ export function RegisterModal() {
   })
 
   function createData() {
-    setLoading(true)
+    setLoadingSubmit(true)
     const formData = {
       email: watch('email'),
-      passsword: watch('password'),
+      password: watch('password'),
       passwordConfirmation: watch('passwordConfirmation'),
     }
 
     server
       .post('/api/v1/signUp', formData)
       .then((response) => {
-        setSucess(response.data)
+        console.log(response.data)
+        toast.success('Usuário cadastrado com sucesso!')
       })
       .catch((error) => {
-        setError(error)
+        setLoadingSubmit(false)
         console.error(error)
+        toast.error('Erro no cadastro, tente novamente!')
       })
-      .finally(() => {
-        setLoading(false)
-      })
+      .finally(() => setLoadingSubmit(false))
   }
 
   return (
@@ -107,7 +110,7 @@ export function RegisterModal() {
 
           <CardContent className="grid gap-4">
             <div className="grid grid-cols-1 gap-6">
-              <RegisterGoogleButton loading={loading} />
+              <RegisterGoogleButton loading={loadingGoogle} />
             </div>
 
             <div className="relative">
@@ -122,27 +125,10 @@ export function RegisterModal() {
             </div>
 
             <RegisterForm register={register} errors={errors} />
-            {sucess && (
-              <div className="flex flex-col pt-2 pl-3">
-                <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-green">
-                  Usuário criado com sucesso
-                  <CircleCheckBig className="size-4" />
-                </p>
-              </div>
-            )}
-
-            {error && (
-              <div className="flex flex-col pt-2 pl-3">
-                <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
-                  <TriangleAlert className="size-4" />
-                  {error.message}
-                </p>
-              </div>
-            )}
           </CardContent>
 
           <CardFooter>
-            <RegisterButton loading={loading} />
+            <RegisterButton loading={loadingSubmit} />
           </CardFooter>
         </form>
       </Card>

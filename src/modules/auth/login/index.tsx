@@ -37,7 +37,7 @@ export default function Login() {
 
             <AlertDialog>
               <AlertDialogTrigger>
-                <Button className="flex items-center gap-x-2 px-8 py-6 rounded-lg font-semibold bg-transparent border-[2.5px] border-black text-black hover:bg-black hover:text-white hover:border-none focus:bg-black focus:text-white focus:border-none transition-colors">
+                <Button className="flex items-center w-72 gap-x-2 px-8 py-6 rounded-lg font-semibold bg-black text-white hover:opacity-90 focus:opacity-90">
                   Criar uma nova conta
                   <UserPlus className="size-6" />
                 </Button>
