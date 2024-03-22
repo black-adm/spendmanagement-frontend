@@ -1,6 +1,6 @@
-import { KeySquare, Mail, ShieldAlert } from 'lucide-react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ValidateInputForm } from './login-form';
+import { KeySquare, Mail, ShieldAlert } from 'lucide-react'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { ValidateInputForm } from './login-form'
 
 interface LoginInputsProps {
   register: UseFormRegister<ValidateInputForm>
@@ -10,7 +10,7 @@ interface LoginInputsProps {
 export function LoginInputs({ register, errors }: LoginInputsProps) {
   return (
     <>
-      <div className="flex items-center border-2 border-black rounded-lg">
+      <div className="flex items-center rounded-lg border-2 border-black">
         <Mail className="ml-4 size-6" />
         <input
           type="email"

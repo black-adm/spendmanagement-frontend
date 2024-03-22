@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { useRouter } from 'next/navigation'
 import { RegisterButton } from './register-button'
 import { RegisterForm } from './register-form'
 import { RegisterGoogleButton } from './register-google-button'
@@ -39,8 +40,9 @@ const createInputFormSchema = z.object({
 export type CreateInputForm = z.infer<typeof createInputFormSchema>
 
 export function RegisterModal() {
+  const router = useRouter()
   const [loadingSubmit, setLoadingSubmit] = useState(false)
-  const [loadingGoogle, setLoadingGoogle] = useState(false)
+  const [loadingGoogle] = useState(false)
 
   const {
     handleSubmit,
@@ -51,7 +53,7 @@ export function RegisterModal() {
     resolver: zodResolver(createInputFormSchema),
   })
 
-  function createData() {
+  function registerData() {
     setLoadingSubmit(true)
     const formData = {
       email: watch('email'),
@@ -59,24 +61,33 @@ export function RegisterModal() {
       passwordConfirmation: watch('passwordConfirmation'),
     }
 
+    const loginData = {
+      email: formData.email,
+      password: formData.password,
+    }
+
     server
       .post('/api/v1/signUp', formData)
-      .then((response) => {
-        console.log(response.data)
+      .then(() => {
+        setLoadingSubmit(false)
         toast.success('Usuário cadastrado com sucesso!')
+        server.post('/api/v1/login', loginData).then((response) => {
+          const token = response.data.accessToken
+          localStorage.setItem('accessToken', token)
+          router.push('/dashboard')
+        })
       })
       .catch((error) => {
         setLoadingSubmit(false)
-        console.error(error)
         toast.error('Erro no cadastro, tente novamente!')
+        console.error(error)
       })
-      .finally(() => setLoadingSubmit(false))
   }
 
   return (
     <>
       <Card>
-        <form onSubmit={handleSubmit(createData)}>
+        <form onSubmit={handleSubmit(registerData)}>
           <CardHeader className="space-y-1">
             <CardTitle className="flex justify-between items-center text-2xl">
               Cadastrar uma nova conta
@@ -123,10 +134,8 @@ export function RegisterModal() {
                 </span>
               </div>
             </div>
-
             <RegisterForm register={register} errors={errors} />
           </CardContent>
-
           <CardFooter>
             <RegisterButton loading={loadingSubmit} />
           </CardFooter>

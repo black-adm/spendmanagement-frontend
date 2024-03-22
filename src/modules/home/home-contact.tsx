@@ -4,52 +4,45 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { mail } from '@/lib/axios'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CircleCheckBig, Loader, ShieldAlert } from 'lucide-react'
 
+import { Loader } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast, Toaster } from 'sonner'
 import { z } from 'zod'
-
-export type ValidateInput = z.infer<typeof validateInputSchema>
 
 const validateInputSchema = z.object({
   to: z
     .string()
-    .nonempty('Preencha o campo com o seu e-mail.')
+    .min(1, 'Preencha o campo com o seu e-mail.')
     .email('Formato de e-mail inválido!'),
 })
 
+export type ValidateInput = z.infer<typeof validateInputSchema>
+
 export function HomeContact() {
-  const [sucess, setSucess] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const {
-    handleSubmit,
-    register,
-    watch,
-    formState: { errors },
-  } = useForm<ValidateInput>({
+  const { handleSubmit, register, watch } = useForm<ValidateInput>({
     resolver: zodResolver(validateInputSchema),
   })
 
   function sendMail() {
     setLoading(true)
-    const inputData = {
-      to: watch('to'),
-    }
+    const inputData = { to: watch('to') }
 
     mail
       .post('v1/api/Email/subscribe', inputData)
       .then((response) => {
-        setSucess(response.data)
         console.log(response.data)
+        toast.success('Email enviado!')
       })
       .catch((error) => {
-        console.error('Internal server error:', error)
-      })
-      .finally(() => {
         setLoading(false)
+        console.error(error)
+        toast.error('Erro ao enviar email!')
       })
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -85,24 +78,7 @@ export function HomeContact() {
             )}
           </Button>
         </div>
-
-        {sucess && (
-          <div className="flex flex-col pt-2 pl-3">
-            <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-green">
-              Email enviado com sucesso
-              <CircleCheckBig className="size-4" />
-            </p>
-          </div>
-        )}
-
-        {errors.to && (
-          <div className="flex flex-col pt-2 pl-3">
-            <p className="flex items-center gap-x-[2px] text-xs font-medium tracking-tight text-primary-red">
-              <ShieldAlert className="size-4" />
-              {errors.to.message}
-            </p>
-          </div>
-        )}
+        <Toaster richColors position="bottom-right" />
       </form>
     </>
   )

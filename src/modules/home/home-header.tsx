@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { RegisterModal } from '@/modules/auth/register/register-modal'
-import { CircleDollarSign, Info, SquareTerminal } from 'lucide-react'
+import { BadgePercent, BookCheck, CircleDollarSign, Info } from 'lucide-react'
 
 export function HomeHeader() {
   return (
@@ -35,8 +35,16 @@ export function HomeHeader() {
             href="#"
             className="inline-flex items-center gap-x-1 text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
           >
-            <SquareTerminal className="text-primary-green size-[22px]" />
-            Desenvolvedores
+            <BadgePercent className="text-primary-green size-[22px]" />
+            Planos
+          </Link>
+
+          <Link
+            href="#"
+            className="inline-flex items-center gap-x-1 text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary-orange active:text-medium-orange"
+          >
+            <BookCheck className="text-primary-green size-5" />
+            Tutorial
           </Link>
         </nav>
 

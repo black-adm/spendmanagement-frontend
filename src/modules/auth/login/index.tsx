@@ -37,7 +37,7 @@ export default function Login() {
 
             <AlertDialog>
               <AlertDialogTrigger>
-                <Button className="flex items-center w-72 gap-x-2 px-8 py-6 rounded-lg font-semibold bg-black text-white hover:opacity-90 focus:opacity-90">
+                <Button className="flex items-center w-60 gap-x-2 px-8 py-6 rounded-lg font-semibold bg-black text-white hover:opacity-90 focus:opacity-90">
                   Criar uma nova conta
                   <UserPlus className="size-6" />
                 </Button>
@@ -47,7 +47,9 @@ export default function Login() {
               </AlertDialogContent>
             </AlertDialog>
           </div>
-          <p className="font-medium">© 2023 - Todos os direitos reservados.</p>
+          <p className="font-medium text-sm">
+            © Spend Management 2023 - Todos os direitos reservados.
+          </p>
         </div>
 
         {/* Responsive */}

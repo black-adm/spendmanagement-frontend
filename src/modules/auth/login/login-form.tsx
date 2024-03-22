@@ -2,11 +2,13 @@
 
 import { server } from '@/lib/axios'
 import { zodResolver } from '@hookform/resolvers/zod'
+
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast, Toaster } from 'sonner'
 import { z } from 'zod'
 
-import { toast, Toaster } from 'sonner'
+import { useRouter } from 'next/navigation'
 import { SubmitButton } from './login-button'
 import { LoginGoogleButton } from './login-google-button'
 import { LoginInputs } from './login-inputs'
@@ -25,8 +27,9 @@ const validateInputFormSchema = z.object({
 export type ValidateInputForm = z.infer<typeof validateInputFormSchema>
 
 export function Form() {
+  const router = useRouter()
   const [loadingSubmit, setLoadingSubmit] = useState(false)
-  const [loadingGoogle, setLoadingGoogle] = useState(false)
+  const [loadingGoogle] = useState(false)
 
   const {
     handleSubmit,
@@ -39,7 +42,6 @@ export function Form() {
 
   async function loginData() {
     setLoadingSubmit(true)
-
     const formData = {
       email: watch('email'),
       password: watch('password'),
@@ -48,15 +50,17 @@ export function Form() {
     server
       .post('/api/v1/login', formData)
       .then((response) => {
-        console.log(response.data)
+        setLoadingSubmit(false)
         toast.success('Login efetuado com sucesso!')
+        const token = response.data.accessToken
+        localStorage.setItem('accessToken', token)
+        router.push('/dashboard')
       })
       .catch((error) => {
         setLoadingSubmit(false)
         console.error(error)
         toast.error('Erro ao realizar login, tente novamente!')
       })
-      .finally(() => setLoadingSubmit(false))
   }
 
   return (
