@@ -36,7 +36,7 @@ export function DashboardHeader() {
             </Link>
           </nav>
         </div>
-        <Badge className="rounded-full text-zinc-800 bg-lime-200 hover:bg-lime-300">
+        <Badge className="rounded-full text-zinc-800 bg-yellow-200 hover:bg-light-orange">
           7 dias grátis
         </Badge>
 
