@@ -16,21 +16,21 @@ export function DashboardHeader() {
           <nav className="flex items-center gap-16">
             <Link
               href="#"
-              className="text-sm font-medium text-zinc-700 hover:text-primary-green"
+              className="text-sm font-medium text-zinc-700 hover:text-primary-orange"
             >
               Dashboard
             </Link>
 
             <Link
               href="#"
-              className="text-sm font-medium text-zinc-700 hover:text-primary-green"
+              className="text-sm font-medium text-zinc-700 hover:text-primary-orange"
             >
               Meus gastos
             </Link>
 
             <Link
               href="#"
-              className="text-sm font-medium text-zinc-700 hover:text-primary-green"
+              className="text-sm font-medium text-zinc-700 hover:text-primary-orange"
             >
               Transações
             </Link>

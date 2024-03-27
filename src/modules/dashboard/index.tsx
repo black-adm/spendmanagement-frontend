@@ -16,13 +16,13 @@ export default function Dashboard() {
       <DashboardHeader />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 lg:p-10">
         <Card className="col-span-4">
-          <CardHeader>
+          <CardHeader className="h-10">
             <CardTitle className="flex items-center gap-3 uppercase">
               <BarChart2 className="text-light-orange h-8 w-8" />
               Resumo da sua conta
             </CardTitle>
           </CardHeader>
-          <CardContent className="pl-2">
+          <CardContent className="mt-10">
             <DashboardOverview />
           </CardContent>
         </Card>

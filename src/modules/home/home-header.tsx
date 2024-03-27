@@ -74,7 +74,7 @@ export function HomeHeader() {
           </Link>
 
           <AlertDialog>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger asChild>
               <Button className="bg-white rounded-none flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24">
                 <svg
                   className="h-6 w-6 text-black lucide lucide-user-plus"

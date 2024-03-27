@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { DashboardViewButton } from './dashboard-view-button'
 
 export function DashboardActivity() {
   return (
@@ -19,6 +20,7 @@ export function DashboardActivity() {
           R$ 1.999,00
           <p className="text-xs text-muted-foreground text-right">02/03/2024</p>
         </div>
+        <DashboardViewButton />
       </div>
 
       <div className="flex items-center">
@@ -37,6 +39,7 @@ export function DashboardActivity() {
           R$ 37,24
           <p className="text-xs text-muted-foreground text-right">07/03/2024</p>
         </div>
+        <DashboardViewButton />
       </div>
 
       <div className="flex items-center">
@@ -54,9 +57,10 @@ export function DashboardActivity() {
           <p className="text-sm text-muted-foreground">Borracharia do Zé</p>
         </div>
         <div className="ml-auto font-medium">
-          4x R$ 221,09
+          <span className="text-xs font-semibold">4x</span> R$ 221,09
           <p className="text-xs text-muted-foreground text-right">14/03/2024</p>
         </div>
+        <DashboardViewButton />
       </div>
 
       <div className="flex items-center">
@@ -75,6 +79,7 @@ export function DashboardActivity() {
           R$ 136,48
           <p className="text-xs text-muted-foreground text-right">19/03/2024</p>
         </div>
+        <DashboardViewButton />
       </div>
 
       <div className="flex items-center">
@@ -93,6 +98,7 @@ export function DashboardActivity() {
           R$ 45,00
           <p className="text-xs text-muted-foreground text-right">21/03/2024</p>
         </div>
+        <DashboardViewButton />
       </div>
     </div>
   )

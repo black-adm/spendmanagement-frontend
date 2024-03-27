@@ -36,7 +36,7 @@ export default function Login() {
             <p className="text-lg font-light">Ainda não possui uma conta ?</p>
 
             <AlertDialog>
-              <AlertDialogTrigger>
+              <AlertDialogTrigger asChild>
                 <Button className="flex items-center w-60 gap-x-2 px-8 py-6 rounded-lg font-semibold bg-black text-white hover:opacity-90 focus:opacity-90">
                   Criar uma nova conta
                   <UserPlus className="size-6" />

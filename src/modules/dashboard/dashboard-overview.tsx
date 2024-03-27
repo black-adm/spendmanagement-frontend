@@ -66,9 +66,10 @@ export function DashboardOverview() {
         />
         <YAxis
           stroke="#888888"
-          fontSize={12}
+          fontSize={10}
           tickLine={false}
           axisLine={false}
+          tickMargin={16}
           tickFormatter={(value: number) => `R$ ${value}`}
         />
         <Bar
