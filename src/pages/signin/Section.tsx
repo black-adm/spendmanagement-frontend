@@ -22,8 +22,7 @@ export function SignInSection() {
           das suas despesas
         </h1>
         <p className="mb-8 pt-3 text-lg font-normal text-gray-500 lg:text-xl sm:px-28">
-          Here at Flowbite we focus on markets where technology, innovation, and
-          capital can unlock long-term value and drive economic growth.
+          Controle total da sua gestão financeira em um só lugar. 
         </p>
       </div>
     </section>
