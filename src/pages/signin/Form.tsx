@@ -1,9 +1,40 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Separator } from "@/components/Separator";
-import { EnvelopeClosedIcon, EyeClosedIcon, LockClosedIcon } from "@radix-ui/react-icons";
+import { server } from "@/lib/axios";
+import {
+  EnvelopeClosedIcon,
+  EyeClosedIcon,
+  LockClosedIcon,
+} from "@radix-ui/react-icons";
+import { toast } from "sonner";
 
 export function SignInForm() {
+  async function handleSubmit() {
+    const form = {
+      grant_type: "",
+      client_id: "",
+      client_secret: "",
+    };
+
+    try {
+      const response = await server.post("/token", form);
+      console.log(response)
+      toast.success(
+        "Login realizado com sucesso!", { 
+        description: "Aguarde, você será redirecionado ..."
+        }
+      );
+      return response;
+    } catch {
+      toast.error(
+        "Erro ao realizar fazer login", { 
+        description: "Verifique os dados digitados e tente novamente."
+        }
+      );
+    }
+  }
+
   return (
     <form className="w-full space-y-3 items-center pt-10">
       <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
@@ -33,7 +64,8 @@ export function SignInForm() {
 
       <div className="pt-4">
         <Button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           className="w-full text-primary-orange hover:text-white hover:opacity-90"
         >
           Fazer login
