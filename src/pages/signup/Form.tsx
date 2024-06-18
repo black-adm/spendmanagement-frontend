@@ -27,22 +27,23 @@ export function SignUpForm() {
       username: watch("username"),
       email: watch("email"),
       attributes: {
-        "zoneinfo": ["value1"],
-        "birthdate": ["value2"],
-        "phoneNumber": ["value2"],
-        "gender": ["value2"],
-        "fullname": ["value2"],
-        "tenant": ["value2"],
-        "picture": ["value2"]
+        "zoneinfo": [watch("zoneinfo")],
+        "birthdate": [watch("birthdate")],
+        "phoneNumber": [watch("phoneNumber")],
+        "gender": [watch("gender")],
+        "fullname": [watch("fullname")],
+        "tenant": [100000],
+        "picture": [watch("picture")]
       }
-    };
+    }
 
     try {
       const responseGetToken = await server.post("realms/10000/protocol/openid-connect/token", formData);
       const token = "Bearer " + await responseGetToken.data.access_token;
 
-      console.log(token);
-      console.log(formDataCreateUser);
+
+      console.log(JSON.stringify(formDataCreateUser));
+
       const responseSaveUser = await server.post("admin/realms/10000/users", formDataCreateUser, {
         headers: { "Authorization": token }
       });
@@ -63,6 +64,17 @@ export function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full space-y-3 items-center pt-10">
+      <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+        <EnvelopeClosedIcon className="ml-3 size-6" />
+        <Separator className="w-0.5 h-3.5 bg-gray-300" />
+        <Input
+          type="text"
+          className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
+          maxLength={60}
+          required
+          {...register("username")}
+        />
+      </div>
       <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
         <EnvelopeClosedIcon className="ml-3 size-6" />
         <Separator className="w-0.5 h-3.5 bg-gray-300" />
