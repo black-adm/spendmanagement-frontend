@@ -4,14 +4,14 @@ import { Separator } from "@/components/Separator";
 import { SignInForm } from "./Form";
 import { SignInSection } from "./Section";
 
-export function SignInPage() {
+export function ForgotPassword() {
+
+  function redirectSignIn() {
+    window.location.href = "/signin";
+  }
 
   function redirectSignUp() {
     window.location.href = "/signup";
-  }
-
-  function redirectForgotPassword() {
-    window.location.href = "/forgot-password";
   }
 
   return (
@@ -21,15 +21,15 @@ export function SignInPage() {
           <div className="flex flex-col items-center pt-20">
             <div>
               <img src={logo} alt="logo" />
-              <h2 className="font-bold text-3xl">Bem vindo (a) de volta</h2>
+              <h2 className="font-bold text-3xl">Informe seu e-mail para recuperar a senha</h2>
               <p className="pt-1 font-light text-lg">
-                Informe suas credenciais de acesso.
+                Se ele existir em nossa base de dados, um e-mail de recuperação será enviado :)
               </p>
             </div>
             <SignInForm />
             <div className="w-full flex justify-center items-center mt-4">
-              <button onClick={redirectForgotPassword} className="font-medium text-sm text-sky-400 hover:underline">
-                Esqueceu a senha?
+              <button onClick={redirectSignIn} className="font-medium text-sm text-sky-400 hover:underline">
+                Já possui login?
               </button>
             </div>
             <div className="w-full flex md:justify-between justify-center items-center mt-6">
