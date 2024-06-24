@@ -24,18 +24,32 @@ export function SignInForm() {
 
   async function onSubmit() {
     const formData = {
-      client_id: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
-      grant_type: import.meta.env.VITE_KEYCLOAK_GRANT_TYPE,
-      client_secret: import.meta.env.VITE_KEYCLOAK_CLIENT_SECRET,
+      client_id: "receipts-api",
+      grant_type: "password",
+      client_secret: "7aMsLHaSjLR9KtURpqGgdfcYqdEa8zbb",
+      scope: "receipts-read receipts-write",
       username: watch("username"),
       password: watch("password"),
     };
 
     try {
-      await server.post("/token", formData);
-      toast.success("Login realizado com sucesso!", {
-        description: "Aguarde, você será redirecionado ...",
-      });
+      const tokenInfo = await server.post("realms/10000/protocol/openid-connect/token", formData);
+
+      if (tokenInfo.status === 200) {
+        localStorage.setItem("tokenId", tokenInfo.data.access_token);
+        localStorage.setItem("refresh_token", tokenInfo.data.access_token);
+
+        toast.success("Login realizado com sucesso!", {
+          description: "Aguarde, você será redirecionado ...",
+        });
+
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 1000);
+
+        return;
+      }
+
     } catch {
       toast.error("Erro ao realizar fazer login", {
         description: "Verifique os dados digitados e tente novamente.",

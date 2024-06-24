@@ -9,7 +9,7 @@ import {
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export function SignInForm() {
+export function DashboardForm() {
   const {
     watch,
     register,
@@ -52,10 +52,6 @@ export function SignInForm() {
         toast.success(
           `Foi enviado um e-mail para ${userName} com os passos para redefinição de senha!`, {
         });
-
-        setTimeout(() => {
-          window.location.href = "/signin";
-        }, 3000);
       }
       else {
         toast.error(

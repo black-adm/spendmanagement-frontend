@@ -18,6 +18,7 @@ import {
   UserCircleIcon,
 } from "lucide-react";
 import { toast } from "sonner";
+import { SignUpSection } from "./Section";
 
 // Definindo o esquema de validação com zod
 const schema = z.object({
@@ -247,7 +248,9 @@ export function MultiStep() {
         description: "Aguarde, você será redirecionado ..."
       });
 
-      window.location.href = "/signin";
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 3000);
 
     } catch (error: any) {
       if (error.response && error.response.status === 409) {
@@ -336,7 +339,7 @@ export function MultiStep() {
                   <Input
                     type="password"
                     placeholder="Confirmar senha"
-                    className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
+                    className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg tracking-widest placeholder:text-primary-gray focus-visible:ring-0"
                     maxLength={60}
                     required
                     onChange={handleInputChange}
@@ -377,7 +380,7 @@ export function MultiStep() {
                 <CalendarIcon className="ml-3 size-6" />
                 <Separator className="w-0.5 h-3.5 bg-gray-300" />
                 <Input
-                  type="text"
+                  type="date"
                   placeholder="Data do nascimento"
                   className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
                   maxLength={60}
