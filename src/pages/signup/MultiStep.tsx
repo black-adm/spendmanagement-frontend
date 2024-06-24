@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { z } from "zod";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { server } from "@/lib/axios";
@@ -15,32 +17,60 @@ import {
   PhoneIcon,
   UserCircleIcon,
 } from "lucide-react";
-import { useState } from "react";
 import { toast } from "sonner";
+
+// Definindo o esquema de validação com zod
+const schema = z.object({
+  name: z.string().min(5, "Nome é obrigatório"),
+  email: z.string().email("Email inválido"),
+  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+  confirmPassword: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+  phone: z.string().optional(),
+  birthdate: z.string().optional(),
+  gender: z.string().optional(),
+  cep: z.string().optional(),
+  address: z.string().optional(),
+}).refine(data => data.password === data.confirmPassword, {
+  message: "As senhas não coincidem",
+  path: ["confirmPassword"],
+});
+
+interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone?: string;
+  birthdate?: string;
+  gender?: string;
+  cep?: string;
+  address?: string;
+}
+
+interface FieldErrors {
+  [key: string]: string;
+}
 
 export function MultiStep() {
   const steps = [
-    {
-      id: "PERSONAL",
-      title: "Dados pessoais",
-    },
-    {
-      id: "ACCOUNT",
-      title: "Dados da conta",
-    },
+    { id: "PERSONAL", title: "Dados pessoais" },
+    { id: "ACCOUNT", title: "Dados da conta" },
   ];
 
   const [currentStep, setCurrentStep] = useState(0);
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<FormValues>({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
     phone: "",
     birthdate: "",
     gender: "",
     cep: "",
-    address: ""
+    address: "",
   });
+
+  const [errors, setErrors] = useState<FieldErrors>({});
 
   function handleInputChange(event: any) {
     const { name, value } = event.target;
@@ -48,9 +78,29 @@ export function MultiStep() {
       ...prevState,
       [name]: value,
     }));
+
+    // Limpar o erro do campo específico ao digitar
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   }
 
   function handleNextStep() {
+    const result = schema.safeParse(formValues);
+    if (!result.success) {
+      const fieldErrors: FieldErrors = {};
+      result.error.errors.forEach(error => {
+        if (error.path.length > 0) {
+          const key = error.path[0];
+          fieldErrors[key] = error.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setErrors({});
     setCurrentStep((prevState) => prevState + 1);
   }
 
@@ -61,6 +111,21 @@ export function MultiStep() {
   async function createUser(event: any) {
     event.preventDefault();
 
+    const result = schema.safeParse(formValues);
+    if (!result.success) {
+      const fieldErrors: FieldErrors = {};
+      result.error.errors.forEach(error => {
+        if (error.path.length > 0) {
+          const key = error.path[0];
+          fieldErrors[key] = error.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setErrors({});
+
     try {
       const formData = {
         client_id: "receipts-api",
@@ -68,10 +133,9 @@ export function MultiStep() {
         client_secret: "7aMsLHaSjLR9KtURpqGgdfcYqdEa8zbb"
       };
 
-      //Obter token pra usar em todos os requests
+      // Obter token pra usar em todos os requests
       const responseGetToken = await server.post("realms/10000/protocol/openid-connect/token", formData);
       const token = "Bearer " + await responseGetToken.data.access_token;
-
       const nameParts = formValues.name.split(" ");
       const firstName = nameParts[0] || '';
       const lastName = nameParts.slice(1).join(" ") || '';
@@ -94,7 +158,7 @@ export function MultiStep() {
         }
       }
 
-      //Criar usuario
+      // Criar usuario
       const responseSaveUser = await server.post("admin/realms/10000/users", formDataCreateUser, {
         headers: {
           "Authorization": token,
@@ -113,9 +177,8 @@ export function MultiStep() {
         });
 
         const userId = responseGetUser.data[0].id;
-        console.log(userId);
 
-        //Em seguida deve-se definir uma senha para o usuário, seguindo o que foi escrito no campo.
+        // Em seguida deve-se definir uma senha para o usuário, seguindo o que foi escrito no campo.
         const passwordData = {
           type: "password",
           temporary: false,
@@ -139,7 +202,7 @@ export function MultiStep() {
           }
         });
 
-        //Enviar email pra confirmar e-mail
+        // Enviar email pra confirmar e-mail
         await server.put(`admin/realms/10000/users/${userId}/send-verify-email`, null, {
           headers: {
             "Authorization": token,
@@ -184,6 +247,8 @@ export function MultiStep() {
         description: "Aguarde, você será redirecionado ..."
       });
 
+      window.location.href = "/signin";
+
     } catch (error: any) {
       if (error.response && error.response.status === 409) {
         // Se o erro for devido a conflito (usuário já existe), trate conforme necessário
@@ -201,6 +266,7 @@ export function MultiStep() {
       }
     }
   }
+
   return (
     <form onSubmit={createUser} className="w-screen h-auto">
       <div className="flex flex-col max-w-sm mx-auto w-full">
@@ -208,72 +274,105 @@ export function MultiStep() {
           {/* Dados pessoais */}
           {steps[currentStep].id === "PERSONAL" && (
             <>
-              <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                <UserCircleIcon className="ml-3 size-7" />
-                <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                <Input
-                  type="text"
-                  placeholder="Nome completo"
-                  className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                  maxLength={60}
-                  required
-                  onChange={handleInputChange}
-                  value={formValues.name}
-                  name="name"
-                />
+              <div className="flex flex-col">
+                <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+                  <UserCircleIcon className="ml-3 size-7" />
+                  <Separator className="w-0.5 h-3.5 bg-gray-300" />
+                  <Input
+                    type="text"
+                    placeholder="Nome completo"
+                    className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
+                    maxLength={60}
+                    required
+                    onChange={handleInputChange}
+                    value={formValues.name}
+                    name="name"
+                  />
+                </div>
+                {errors.name && <span className="text-red-500 mt-1 ml-3 block">{errors.name}</span>}
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+                  <EnvelopeClosedIcon className="ml-3 size-6" />
+                  <Separator className="w-0.5 h-3.5 bg-gray-300" />
+                  <Input
+                    type="text"
+                    placeholder="Email"
+                    className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
+                    maxLength={60}
+                    required
+                    onChange={handleInputChange}
+                    value={formValues.email}
+                    name="email"
+                  />
+                </div>
+                {errors.email && <span className="text-red-500 mt-1 ml-3 block">{errors.email}</span>}
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+                  <LockClosedIcon className="ml-3 size-7" />
+                  <Separator className="w-0.5 h-3.5 bg-gray-300" />
+                  <Input
+                    type="password"
+                    placeholder="Senha"
+                    className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg tracking-widest placeholder:text-primary-gray focus-visible:ring-0"
+                    maxLength={60}
+                    required
+                    onChange={handleInputChange}
+                    value={formValues.password}
+                    name="password"
+                  />
+                  <button type="button" className="pr-4 bg-none">
+                    <EyeClosedIcon className="size-5" />
+                  </button>
+                </div>
+                {errors.password && <span className="text-red-500 mt-1 ml-3 block">{errors.password}</span>}
               </div>
 
-              <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                <EnvelopeClosedIcon className="ml-3 size-6" />
-                <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                <Input
-                  type="text"
-                  placeholder="Email"
-                  className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                  maxLength={60}
-                  required
-                  onChange={handleInputChange}
-                  value={formValues.email}
-                  name="email"
-                />
+              <div className="flex flex-col">
+                <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+                  <LockClosedIcon className="ml-3 size-7" />
+                  <Separator className="w-0.5 h-3.5 bg-gray-300" />
+                  <Input
+                    type="password"
+                    placeholder="Confirmar senha"
+                    className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
+                    maxLength={60}
+                    required
+                    onChange={handleInputChange}
+                    value={formValues.confirmPassword}
+                    name="confirmPassword"
+                  />
+                  <button type="button" className="pr-4 bg-none">
+                    <EyeClosedIcon className="size-5" />
+                  </button>
+                </div>
+                {errors.confirmPassword && <span className="text-red-500 mt-1 ml-3 block">{errors.confirmPassword}</span>}
               </div>
-              <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                <LockClosedIcon className="ml-3 size-7" />
-                <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                <Input
-                  type="password"
-                  placeholder="Senha"
-                  className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg tracking-widest placeholder:text-primary-gray focus-visible:ring-0"
-                  maxLength={10}
-                  required
-                  onChange={handleInputChange}
-                  value={formValues.password}
-                  name="password"
-                />
-                <button type="button" className="pr-4 bg-none">
-                  <EyeClosedIcon className="size-5" />
-                </button>
-              </div>
-              <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                <PhoneIcon className="ml-3 size-6" />
-                <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                <Input
-                  type="text"
-                  placeholder="Telefone"
-                  className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                  maxLength={60}
-                  required
-                  onChange={handleInputChange}
-                  value={formValues.phone}
-                  name="phone"
-                />
-              </div>
+
             </>
           )}
 
           {/* Dados da conta */}
           {steps[currentStep].id === "ACCOUNT" && (
             <>
+              <div className="flex flex-col">
+                <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+                  <PhoneIcon className="ml-3 size-6" />
+                  <Separator className="w-0.5 h-3.5 bg-gray-300" />
+                  <Input
+                    type="text"
+                    placeholder="Telefone"
+                    className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
+                    maxLength={60}
+                    required
+                    onChange={handleInputChange}
+                    value={formValues.phone}
+                    name="phone"
+                  />
+                  {errors.phone && <span className="text-red-500 mt-1 ml-3 block">{errors.phone}</span>}
+                </div>
+              </div>
               <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
                 <CalendarIcon className="ml-3 size-6" />
                 <Separator className="w-0.5 h-3.5 bg-gray-300" />
@@ -291,16 +390,19 @@ export function MultiStep() {
               <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
                 <InfoIcon className="ml-3 size-6" />
                 <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                <Input
-                  type="text"
-                  placeholder="Genêro"
+                <select
                   className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                  maxLength={60}
                   required
                   onChange={handleInputChange}
                   value={formValues.gender}
                   name="gender"
-                />
+                >
+                  <option value="" disabled>Selecione o gênero</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Não Binário">Não Binário</option>
+                  <option value="Prefiro não dizer">Prefiro não dizer</option>
+                </select>
               </div>
 
               <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
@@ -336,24 +438,22 @@ export function MultiStep() {
           )}
         </div>
 
-        {currentStep > 0 && (
-          <Button
-            type="button"
-            onClick={handlePreviousStep}
-            className="my-2 bg-white text-primary-orange hover:bg-primary-orange hover:text-white"
-          >
-            Voltar
-          </Button>
-        )}
-        {currentStep < steps.length - 1 && (
-          <Button type="button" onClick={handleNextStep} className="my-2">
-            Próximo
-          </Button>
-        )}
-
-        {currentStep === steps.length - 1 && (
-          <Button type="submit">Cria uma conta</Button>
-        )}
+        <div className="flex justify-between mt-4">
+          {currentStep > 0 && (
+            <Button type="button" onClick={handlePreviousStep}>
+              Voltar
+            </Button>
+          )}
+          {currentStep < steps.length - 1 ? (
+            <Button type="button" onClick={handleNextStep}>
+              Próximo
+            </Button>
+          ) : (
+            <Button type="submit">
+              Enviar
+            </Button>
+          )}
+        </div>
       </div>
     </form>
   );
