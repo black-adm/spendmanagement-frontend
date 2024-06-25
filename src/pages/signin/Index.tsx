@@ -1,19 +1,12 @@
 import logo from "@/assets/images/logo-white.png";
 import { Button } from "@/components/Button";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/Drawer";
 import { Separator } from "@/components/Separator";
 import { SignInForm } from "./Form";
 import { SignInSection } from "./Section";
+import { ForgotPasswordForm } from "./forgotPassword/ForgotPasswordForm";
 
 export function SignInPage() {
-
-  function redirectSignUp() {
-    window.location.href = "/signup";
-  }
-
-  function redirectForgotPassword() {
-    window.location.href = "/forgot-password";
-  }
-
   return (
     <div className="h-full w-screen overflow-hidden">
       <div className="grid grid-cols-2 h-screen">
@@ -27,11 +20,20 @@ export function SignInPage() {
               </p>
             </div>
             <SignInForm />
+
             <div className="w-full flex justify-center items-center mt-4">
-              <button onClick={redirectForgotPassword} className="font-medium text-sm text-sky-400 hover:underline">
-                Esqueceu a senha?
-              </button>
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <p className="font-medium text-sm text-blue-300 hover:text-sky-400 hover:underline">
+                    Esqueceu sua senha?
+                  </p>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <ForgotPasswordForm />
+                </DrawerContent>
+              </Drawer>
             </div>
+
             <div className="w-full flex md:justify-between justify-center items-center mt-6">
               <Separator className="w-16 h-0.5 bg-primary-gray" />
               <p className="font-semibold md:mx-1.5 text-sm text-black italic">
@@ -42,7 +44,6 @@ export function SignInPage() {
 
             <div className="w-full flex justify-center items-center pt-6">
               <Button
-                onClick={redirectSignUp}
                 type="button"
                 className="w-full bg-primary-orange hover:border hover:border-primary-orange hover:bg-transparent hover:text-primary-orange"
               >
@@ -52,8 +53,8 @@ export function SignInPage() {
           </div>
         </div>
 
-        <div className="flex-1 h-auto max-w-full">
-          <div className="h-1/5 bg-graph bg-no-repeat bg-cover"></div>
+        <div className="hidden md:flex md:flex-col md:flex-1 md:h-auto md:max-w-full">
+          <div className="h-2/3 bg-graph bg-no-repeat bg-cover"></div>
           <SignInSection />
           <div className="h-full bg-graph bg-no-repeat bg-cover"></div>
         </div>

@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export function SignInForm() {
@@ -20,7 +21,9 @@ export function SignInForm() {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
+
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
 
   async function onSubmit() {
     const formData = {
@@ -42,14 +45,8 @@ export function SignInForm() {
         toast.success("Login realizado com sucesso!", {
           description: "Aguarde, você será redirecionado ...",
         });
-
-        setTimeout(() => {
-          window.location.href = "/dashboard";
-        }, 1000);
-
-        return;
+        navigate('/dashboard')
       }
-
     } catch {
       toast.error("Erro ao realizar fazer login", {
         description: "Verifique os dados digitados e tente novamente.",
