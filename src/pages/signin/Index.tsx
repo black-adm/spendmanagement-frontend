@@ -2,11 +2,18 @@ import logo from "@/assets/images/logo-white.png";
 import { Button } from "@/components/Button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/Drawer";
 import { Separator } from "@/components/Separator";
+import { useNavigate } from "react-router-dom";
 import { SignInForm } from "./Form";
 import { SignInSection } from "./Section";
 import { ForgotPasswordForm } from "./forgotPassword/ForgotPasswordForm";
 
 export function SignInPage() {
+  const navigate = useNavigate()
+  
+  function navigateToSignUpPage() {
+    return navigate('/cadastrar')
+  }
+
   return (
     <div className="h-full w-screen overflow-hidden">
       <div className="grid grid-cols-2 h-screen">
@@ -45,6 +52,7 @@ export function SignInPage() {
             <div className="w-full flex justify-center items-center pt-6">
               <Button
                 type="button"
+                onClick={navigateToSignUpPage}
                 className="w-full bg-primary-orange hover:border hover:border-primary-orange hover:bg-transparent hover:text-primary-orange"
               >
                 Criar uma nova conta

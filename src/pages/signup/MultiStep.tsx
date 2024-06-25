@@ -1,40 +1,51 @@
-import { useState } from "react";
-import { z } from "zod";
 import { Button } from "@/components/Button";
+import { Calendar } from "@/components/Calendar";
 import { Input } from "@/components/Input";
-import { server } from "@/lib/axios";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/Popover";
 import {
-  EnvelopeClosedIcon,
-  EyeClosedIcon,
-  LockClosedIcon,
-} from "@radix-ui/react-icons";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/Select";
+import { TogglePasswordButton } from "@/components/TogglePasswordButton";
+import { server } from "@/lib/axios";
+import { EnvelopeClosedIcon, LockClosedIcon } from "@radix-ui/react-icons";
 import { Separator } from "@radix-ui/react-separator";
 import {
   CalendarIcon,
-  InfoIcon,
+  LockKeyholeIcon,
   MapIcon,
   MapPinIcon,
   PhoneIcon,
+  SearchIcon,
   UserCircleIcon,
 } from "lucide-react";
+import { FormEvent, useState } from "react";
+import MaskedInput from "react-input-mask";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { SignUpSection } from "./Section";
+import { z } from "zod";
 
-// Definindo o esquema de validação com zod
-const schema = z.object({
-  name: z.string().min(5, "Nome é obrigatório"),
-  email: z.string().email("Email inválido"),
-  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-  confirmPassword: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-  phone: z.string().optional(),
-  birthdate: z.string().optional(),
-  gender: z.string().optional(),
-  cep: z.string().optional(),
-  address: z.string().optional(),
-}).refine(data => data.password === data.confirmPassword, {
-  message: "As senhas não coincidem",
-  path: ["confirmPassword"],
-});
+const schema = z
+  .object({
+    name: z.string().min(5, "O Nome é um campo obrigatório."),
+    email: z.string().email("O Email informado é inválido."),
+    password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres."),
+    confirmPassword: z.string().min(6, "A confirmação da senha é inválida."),
+    phone: z.string().optional(),
+    birthdate: z.string().optional(),
+    gender: z.string().optional(),
+    cep: z.string().optional(),
+    address: z.string().optional(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Ocorreu um erro! As senhas devem ser idênticas.",
+    path: ["confirmPassword"],
+  });
 
 interface FormValues {
   name: string;
@@ -57,8 +68,6 @@ export function MultiStep() {
     { id: "PERSONAL", title: "Dados pessoais" },
     { id: "ACCOUNT", title: "Dados da conta" },
   ];
-
-  const [currentStep, setCurrentStep] = useState(0);
   const [formValues, setFormValues] = useState<FormValues>({
     name: "",
     email: "",
@@ -71,27 +80,53 @@ export function MultiStep() {
     address: "",
   });
 
+  const [currentStep, setCurrentStep] = useState(0);
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
+  const navigate = useNavigate();
 
   function handleInputChange(event: any) {
     const { name, value } = event.target;
+
     setFormValues((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-
-    // Limpar o erro do campo específico ao digitar
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: "",
     }));
   }
 
+  function handleDateSelect(selectedDate: Date | undefined) {
+    setDate(selectedDate);
+
+    if (selectedDate) {
+      const formattedDate = selectedDate.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+
+      setFormValues((prevState) => ({
+        ...prevState,
+        birthdate: formattedDate,
+      }));
+    }
+  }
+
+  function toggleShowPassword() {
+    setShowPassword(!showPassword);
+  }
+
   function handleNextStep() {
     const result = schema.safeParse(formValues);
+
     if (!result.success) {
       const fieldErrors: FieldErrors = {};
-      result.error.errors.forEach(error => {
+
+      result.error.errors.forEach((error) => {
         if (error.path.length > 0) {
           const key = error.path[0];
           fieldErrors[key] = error.message;
@@ -109,13 +144,13 @@ export function MultiStep() {
     setCurrentStep((prevState) => prevState - 1);
   }
 
-  async function createUser(event: any) {
+  async function createUser(event: FormEvent) {
     event.preventDefault();
-
     const result = schema.safeParse(formValues);
+
     if (!result.success) {
       const fieldErrors: FieldErrors = {};
-      result.error.errors.forEach(error => {
+      result.error.errors.forEach((error) => {
         if (error.path.length > 0) {
           const key = error.path[0];
           fieldErrors[key] = error.message;
@@ -124,22 +159,23 @@ export function MultiStep() {
       setErrors(fieldErrors);
       return;
     }
-
     setErrors({});
 
     try {
       const formData = {
         client_id: "receipts-api",
         grant_type: "client_credentials",
-        client_secret: "7aMsLHaSjLR9KtURpqGgdfcYqdEa8zbb"
+        client_secret: "7aMsLHaSjLR9KtURpqGgdfcYqdEa8zbb",
       };
+      const responseGetToken = await server.post(
+        "realms/10000/protocol/openid-connect/token",
+        formData
+      );
 
-      // Obter token pra usar em todos os requests
-      const responseGetToken = await server.post("realms/10000/protocol/openid-connect/token", formData);
-      const token = "Bearer " + await responseGetToken.data.access_token;
+      const token = "Bearer " + (await responseGetToken.data.access_token);
       const nameParts = formValues.name.split(" ");
-      const firstName = nameParts[0] || '';
-      const lastName = nameParts.slice(1).join(" ") || '';
+      const firstName = nameParts[0] || "";
+      const lastName = nameParts.slice(1).join(" ") || "";
 
       const formDataCreateUser = {
         enabled: true,
@@ -149,156 +185,163 @@ export function MultiStep() {
         email: formValues.email,
         emailVerified: false,
         attributes: {
-          "zoneinfo": [formValues.address + ' ' + formValues.cep],
-          "birthdate": [formValues.birthdate],
-          "phoneNumber": [formValues.phone],
-          "gender": [formValues.gender],
-          "fullname": [formValues.name],
-          "tenant": [100000],
-          "picture": ["somelink"]
-        }
-      }
-
-      // Criar usuario
-      const responseSaveUser = await server.post("admin/realms/10000/users", formDataCreateUser, {
-        headers: {
-          "Authorization": token,
-          "Content-Type": "application/json"
+          zoneinfo: [formValues.address + " " + formValues.cep],
+          birthdate: [formValues.birthdate],
+          phoneNumber: [formValues.phone],
+          gender: [formValues.gender],
+          fullname: [formValues.name],
+          tenant: [100000],
+          picture: ["somelink"],
         },
-      });
+      };
 
-      // Se criado com sucesso, devemos buscar pelo nome de usuário para obter o ID
+      const responseSaveUser = await server.post(
+        "admin/realms/10000/users",
+        formDataCreateUser,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       if (responseSaveUser.status === 201) {
         const responseGetUser = await server.get(`admin/realms/10000/users`, {
           headers: {
-            "Authorization": token,
-            "Content-Type": "application/json"
+            Authorization: token,
+            "Content-Type": "application/json",
           },
-          params: { email: formValues.email }
+          params: { email: formValues.email },
         });
-
         const userId = responseGetUser.data[0].id;
-
-        // Em seguida deve-se definir uma senha para o usuário, seguindo o que foi escrito no campo.
         const passwordData = {
           type: "password",
           temporary: false,
           value: formValues.password,
         };
 
-        await server.put(`admin/realms/10000/users/${userId}/reset-password`, passwordData, {
-          headers: {
-            "Authorization": token,
-            "Content-Type": "application/json"
+        await server.put(
+          `admin/realms/10000/users/${userId}/reset-password`,
+          passwordData,
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
 
-        // Configurar required action
-        await server.put(`admin/realms/10000/users/${userId}`, {
-          requiredActions: ["VERIFY_EMAIL"]
-        }, {
-          headers: {
-            "Authorization": token,
-            "Content-Type": "application/json"
+        await server.put(
+          `admin/realms/10000/users/${userId}`,
+          {
+            requiredActions: ["VERIFY_EMAIL"],
+          },
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
 
-        // Enviar email pra confirmar e-mail
-        await server.put(`admin/realms/10000/users/${userId}/send-verify-email`, null, {
-          headers: {
-            "Authorization": token,
-            "Content-Type": "application/json"
+        await server.put(
+          `admin/realms/10000/users/${userId}/send-verify-email`,
+          null,
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
           }
-        });
+        );
 
-        // Obter todos os grupos do realm
         const groupsResponse = await server.get(`admin/realms/10000/groups`, {
           headers: {
             Authorization: token,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         });
-
         const groups = groupsResponse.data;
-
-        // Mapear os IDs dos grupos que você deseja adicionar o usuário
-        const groupsToAdd = ["Api Readers", "Api Writers"]; // Nomes dos grupos que você quer adicionar o usuário
+        const groupsToAdd = ["Api Readers", "Api Writers"];
         const addGroupsPromises = [];
 
-        groupsToAdd.forEach(groupName => {
-          const group = groups.find((g: { id: string, name: string }) => g.name === groupName);
+        groupsToAdd.forEach((groupName) => {
+          const group = groups.find(
+            (g: { id: string; name: string }) => g.name === groupName
+          );
+
           if (group) {
             const groupId = group.id;
             addGroupsPromises.push(
-              server.put(`admin/realms/10000/users/${userId}/groups/${groupId}`, {}, {
-                headers: {
-                  Authorization: token,
-                  "Content-Type": "application/json"
+              server.put(
+                `admin/realms/10000/users/${userId}/groups/${groupId}`,
+                {},
+                {
+                  headers: {
+                    Authorization: token,
+                    "Content-Type": "application/json",
+                  },
                 }
-              })
+              )
             );
-          } else {
-            console.error(`Group '${groupName}' not found`);
           }
         });
       }
 
-      toast.success(
-        "Login realizado com sucesso!", {
-        description: "Aguarde, você será redirecionado ..."
+      toast.success("SUA CONTA FOI CADASTRADA", {
+        description: "Aguarde, você será redirecionado em instantes ...",
       });
-
-      setTimeout(() => {
-        window.location.href = "/dashboard";
-      }, 3000);
-
+      navigate("/dashboard");
     } catch (error: any) {
-      if (error.response && error.response.status === 409) {
-        // Se o erro for devido a conflito (usuário já existe), trate conforme necessário
-        toast.error(
-          "Erro ao criar usuário", {
-          description: "Este e-mail já está em uso. Se você esqueceu a sua senha, clique em fazer login e redefina a senha."
+      if (error?.response && error?.response.status === 409) {
+        toast.error("O EMAIL DIGITADO JÁ ESTÁ EM USO", {
+          description:
+            "Este e-mail já está em uso. Se você esqueceu a sua senha, clique em fazer login e redefina a senha.",
         });
       } else {
-        // Se houver outro tipo de erro, exiba uma mensagem genérica de erro
-        console.error("Erro ao criar usuário:", error);
-        toast.error(
-          "Erro ao criar usuário", {
-          description: "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde."
+        toast.error("ERRO AO CADASTRAR SUA CONTA", {
+          description:
+            "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.",
         });
       }
     }
   }
 
   return (
-    <form onSubmit={createUser} className="w-screen h-auto">
-      <div className="flex flex-col max-w-sm mx-auto w-full">
+    <form onSubmit={createUser} className="w-full h-auto">
+      <div className="flex flex-col mx-auto w-full">
         <div className="space-y-3 pb-5">
-          {/* Dados pessoais */}
           {steps[currentStep].id === "PERSONAL" && (
             <>
               <div className="flex flex-col">
                 <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                  <UserCircleIcon className="ml-3 size-7" />
+                  <UserCircleIcon className="ml-3 size-7" strokeWidth={1.5} />
                   <Separator className="w-0.5 h-3.5 bg-gray-300" />
                   <Input
                     type="text"
+                    name="name"
                     placeholder="Nome completo"
                     className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
                     maxLength={60}
                     required
                     onChange={handleInputChange}
                     value={formValues.name}
-                    name="name"
                   />
                 </div>
-                {errors.name && <span className="text-red-500 mt-1 ml-3 block">{errors.name}</span>}
+                {errors.name && (
+                  <span className="text-red-500 mt-1 ml-3 block">
+                    {errors.name}
+                  </span>
+                )}
               </div>
+
               <div className="flex flex-col">
                 <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
                   <EnvelopeClosedIcon className="ml-3 size-6" />
                   <Separator className="w-0.5 h-3.5 bg-gray-300" />
                   <Input
+                    name="email"
                     type="text"
                     placeholder="Email"
                     className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
@@ -306,17 +349,21 @@ export function MultiStep() {
                     required
                     onChange={handleInputChange}
                     value={formValues.email}
-                    name="email"
                   />
                 </div>
-                {errors.email && <span className="text-red-500 mt-1 ml-3 block">{errors.email}</span>}
+                {errors.email && (
+                  <span className="text-red-500 mt-1 ml-3 block">
+                    {errors.email}
+                  </span>
+                )}
               </div>
+
               <div className="flex flex-col">
                 <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
                   <LockClosedIcon className="ml-3 size-7" />
                   <Separator className="w-0.5 h-3.5 bg-gray-300" />
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Senha"
                     className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg tracking-widest placeholder:text-primary-gray focus-visible:ring-0"
                     maxLength={60}
@@ -325,19 +372,24 @@ export function MultiStep() {
                     value={formValues.password}
                     name="password"
                   />
-                  <button type="button" className="pr-4 bg-none">
-                    <EyeClosedIcon className="size-5" />
-                  </button>
+                  <TogglePasswordButton
+                    showPassword={showPassword}
+                    toggleShowPassword={toggleShowPassword}
+                  />
                 </div>
-                {errors.password && <span className="text-red-500 mt-1 ml-3 block">{errors.password}</span>}
+                {errors.password && (
+                  <span className="text-red-500 mt-1 ml-3 block">
+                    {errors.password}
+                  </span>
+                )}
               </div>
 
               <div className="flex flex-col">
                 <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                  <LockClosedIcon className="ml-3 size-7" />
+                  <LockKeyholeIcon className="ml-3 size-7" />
                   <Separator className="w-0.5 h-3.5 bg-gray-300" />
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Confirmar senha"
                     className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg tracking-widest placeholder:text-primary-gray focus-visible:ring-0"
                     maxLength={60}
@@ -346,80 +398,34 @@ export function MultiStep() {
                     value={formValues.confirmPassword}
                     name="confirmPassword"
                   />
-                  <button type="button" className="pr-4 bg-none">
-                    <EyeClosedIcon className="size-5" />
-                  </button>
+                  <TogglePasswordButton
+                    showPassword={showPassword}
+                    toggleShowPassword={toggleShowPassword}
+                  />
                 </div>
-                {errors.confirmPassword && <span className="text-red-500 mt-1 ml-3 block">{errors.confirmPassword}</span>}
+                {errors.confirmPassword && (
+                  <span className="text-red-500 mt-1 ml-3 block">
+                    {errors.confirmPassword}
+                  </span>
+                )}
               </div>
-
             </>
           )}
 
-          {/* Dados da conta */}
           {steps[currentStep].id === "ACCOUNT" && (
             <>
-              <div className="flex flex-col">
-                <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                  <PhoneIcon className="ml-3 size-6" />
-                  <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                  <Input
-                    type="text"
-                    placeholder="Telefone"
-                    className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                    maxLength={60}
-                    required
-                    onChange={handleInputChange}
-                    value={formValues.phone}
-                    name="phone"
-                  />
-                  {errors.phone && <span className="text-red-500 mt-1 ml-3 block">{errors.phone}</span>}
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                <CalendarIcon className="ml-3 size-6" />
-                <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                <Input
-                  type="date"
-                  placeholder="Data do nascimento"
-                  className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                  maxLength={60}
-                  required
-                  onChange={handleInputChange}
-                  value={formValues.birthdate}
-                  name="birthdate"
-                />
-              </div>
-              <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-                <InfoIcon className="ml-3 size-6" />
-                <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                <select
-                  className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                  required
-                  onChange={handleInputChange}
-                  value={formValues.gender}
-                  name="gender"
-                >
-                  <option value="" disabled>Selecione o gênero</option>
-                  <option value="Masculino">Masculino</option>
-                  <option value="Feminino">Feminino</option>
-                  <option value="Não Binário">Não Binário</option>
-                  <option value="Prefiro não dizer">Prefiro não dizer</option>
-                </select>
-              </div>
-
               <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
                 <MapIcon className="ml-3 size-6" />
                 <Separator className="w-0.5 h-3.5 bg-gray-300" />
-                <Input
-                  type="text"
+                <MaskedInput
+                  mask="99999-999"
+                  maskChar=""
+                  name="cep"
                   placeholder="CEP"
-                  className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                  maxLength={60}
-                  required
+                  className="flex h-9 rounded-md border border-input bg-transparent px-3 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
                   onChange={handleInputChange}
                   value={formValues.cep}
-                  name="cep"
+                  required
                 />
               </div>
 
@@ -427,23 +433,109 @@ export function MultiStep() {
                 <MapPinIcon className="ml-3 size-6" />
                 <Separator className="w-0.5 h-3.5 bg-gray-300" />
                 <Input
+                  name="address"
                   type="text"
                   placeholder="Endereço"
                   className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
-                  maxLength={60}
-                  required
                   onChange={handleInputChange}
                   value={formValues.address}
-                  name="address"
+                  maxLength={100}
+                  required
                 />
+              </div>
+
+              <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+                <PhoneIcon className="ml-3 size-6" />
+                <Separator className="w-0.5 h-3.5 bg-gray-300" />
+                <MaskedInput
+                  mask="99 99999-9999"
+                  maskChar=""
+                  placeholder="Telefone"
+                  className="flex h-9 rounded-md border border-input bg-transparent px-3 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
+                  onChange={handleInputChange}
+                  value={formValues.phone}
+                  inputMode={"tel"}
+                  name="phone"
+                  required
+                />
+                {errors.phone && (
+                  <span className="text-red-500 mt-1 ml-3 block">
+                    {errors.phone}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+                <CalendarIcon className="ml-3 size-6" />
+                <Separator className="w-0.5 h-3.5 bg-gray-300" />
+                <MaskedInput
+                  mask="99/99/9999"
+                  maskChar=""
+                  placeholder="Data de nascimento"
+                  className="flex h-9 rounded-md border border-input bg-transparent px-3 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 py-2 w-full md:px-3 md:py-3 outline-none border-none font-medium text-lg placeholder:text-primary-gray focus-visible:ring-0"
+                  onChange={handleInputChange}
+                  value={formValues.birthdate}
+                  name="birthdate"
+                  required
+                />
+
+                <Popover>
+                  <div className="pr-3">
+                    <PopoverTrigger asChild>
+                      <SearchIcon className="size-5 hover:text-primary-orange" />
+                    </PopoverTrigger>
+                  </div>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={handleDateSelect}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              <div>
+                <Select
+                  name="gender"
+                  onValueChange={(value) =>
+                    setFormValues((prevState) => ({
+                      ...prevState,
+                      gender: value,
+                    }))
+                  }
+                  value={formValues.gender}
+                  required
+                >
+                  <SelectTrigger className="flex items-center space-x-0 p-5 text-base rounded-lg border-2 border-gray-300">
+                    <SelectValue placeholder="Selecione o gênero" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Como você se identifica?</SelectLabel>
+                      <SelectItem value="Masculino">Masculino</SelectItem>
+                      <SelectItem value="Feminino">Feminino</SelectItem>
+                      <SelectItem value="Não Binário">Não Binário</SelectItem>
+                      <SelectItem value="Prefiro não dizer">
+                        Prefiro não dizer
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
             </>
           )}
         </div>
 
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-end gap-3 mt-2">
           {currentStep > 0 && (
-            <Button type="button" onClick={handlePreviousStep}>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={handlePreviousStep}
+              className="font-medium tracking-wide hover:text-primary-orange"
+            >
               Voltar
             </Button>
           )}
@@ -452,9 +544,7 @@ export function MultiStep() {
               Próximo
             </Button>
           ) : (
-            <Button type="submit">
-              Enviar
-            </Button>
+            <Button type="submit">Enviar</Button>
           )}
         </div>
       </div>

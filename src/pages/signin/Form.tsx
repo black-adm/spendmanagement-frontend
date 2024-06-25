@@ -1,13 +1,12 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Separator } from "@/components/Separator";
+import { TogglePasswordButton } from "@/components/TogglePasswordButton";
 import { server } from "@/lib/axios";
 import {
-  EyeClosedIcon,
-  EyeOpenIcon,
   LockClosedIcon,
   PersonIcon,
-  ReloadIcon,
+  ReloadIcon
 } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -85,17 +84,10 @@ export function SignInForm() {
           required
           {...register("password")}
         />
-        <button
-          type="button"
-          onClick={toggleShowPassword}
-          className="pr-4 bg-none"
-        >
-          {showPassword ? (
-            <EyeOpenIcon className="size-5" />
-          ) : (
-            <EyeClosedIcon className="size-5" />
-          )}
-        </button>
+        <TogglePasswordButton
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
+        />
       </div>
 
       <div className="pt-4">
