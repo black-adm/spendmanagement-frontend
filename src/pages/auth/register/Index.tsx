@@ -6,15 +6,15 @@ import logo from "@/assets/images/logo-white.png";
 export function SignUpPage() {
   return (
     <div className="grid lg:grid-cols-2 min-h-screen w-full">
-      <div className="flex items-center justify-center p-5">
+      <div className="flex items-center justify-center">
         <img
-          src="https://plus.unsplash.com/premium_photo-1672759267829-17e48ef96660?q=80&w=1301&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://i.pinimg.com/originals/a5/f0/5f/a5f05f2b8326abd955c787d446e30366.gif"
           alt="Animation"
-          className="h-[760px] w-full rounded-lg"
+          className="h-full w-full"
         />
       </div>
 
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center md:pb-28">
         <div className="max-w-[460px] space-y-6">
           <div className="flex flex-col items-center">
             <div className="flex flex-col justify-center items-center">
@@ -26,8 +26,9 @@ export function SignUpPage() {
               </p>
             </div>
             <MultiStep />
+
             <div className="w-full flex justify-center items-center mt-10">
-              <p className="font-semibold md:mx-1.5 text-sm text-black italic">
+              <p className="pt-4 font-semibold md:mx-1.5 text-sm text-black italic">
                 Possui uma conta?
                 <a
                   href="/login"

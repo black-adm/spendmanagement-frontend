@@ -5,15 +5,15 @@ import { TogglePasswordButton } from "@/components/TogglePasswordButton";
 import { server } from "@/lib/axios";
 import {
   LockClosedIcon,
-  PersonIcon,
   ReloadIcon
 } from "@radix-ui/react-icons";
+import { MailIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-export function SignInForm() {
+export function LoginForm() {
   const {
     watch,
     register,
@@ -63,7 +63,7 @@ export function SignInForm() {
       className="w-full space-y-3 items-center pt-10"
     >
       <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-        <PersonIcon className="ml-3 size-6" />
+        <MailIcon className="ml-3 size-6" />
         <Separator className="w-0.5 h-3.5 bg-gray-300" />
         <Input
           type="text"

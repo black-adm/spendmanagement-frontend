@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 
-export function SignInSection() {
+export function LoginSection() {
   return (
     <section className="bg-white py-6">
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-12 z-10 relative">
@@ -22,7 +22,8 @@ export function SignInSection() {
           das suas despesas
         </h1>
         <p className="mb-8 pt-3 text-lg font-normal text-gray-500 lg:text-xl sm:px-28">
-          Controle total da sua gestão financeira em um só lugar. 
+          Empodere suas finanças com a nossa plataforma : <br />
+          simplicidade, controle e crescimento ao seu alcance.
         </p>
       </div>
     </section>

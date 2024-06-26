@@ -2,18 +2,13 @@ import logo from "@/assets/images/logo-white.png";
 import { Button } from "@/components/Button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/Drawer";
 import { Separator } from "@/components/Separator";
-import { useNavigate } from "react-router-dom";
-import { SignInForm } from "./Form";
-import { SignInSection } from "./Section";
-import { ForgotPasswordForm } from "./forgotPassword/ForgotPasswordForm";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/Sheet";
+import { ForgotPasswordForm } from "../forgotPassword/Index";
+import { MultiStepForm } from "../register/MultiStepForm";
+import { LoginForm } from "./Form";
+import { LoginSection } from "./Section";
 
-export function SignInPage() {
-  const navigate = useNavigate()
-  
-  function navigateToSignUpPage() {
-    return navigate('/cadastrar')
-  }
-
+export function LoginPage() {
   return (
     <div className="h-full w-screen overflow-hidden">
       <div className="grid grid-cols-2 h-screen">
@@ -26,7 +21,7 @@ export function SignInPage() {
                 Informe suas credenciais de acesso.
               </p>
             </div>
-            <SignInForm />
+            <LoginForm />
 
             <div className="w-full flex justify-center items-center mt-4">
               <Drawer>
@@ -50,20 +45,26 @@ export function SignInPage() {
             </div>
 
             <div className="w-full flex justify-center items-center pt-6">
-              <Button
-                type="button"
-                onClick={navigateToSignUpPage}
-                className="w-full bg-primary-orange hover:border hover:border-primary-orange hover:bg-transparent hover:text-primary-orange"
-              >
-                Criar uma nova conta
-              </Button>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button
+                    type="button"
+                    className="w-full bg-primary-orange hover:border hover:border-primary-orange hover:bg-transparent hover:text-primary-orange"
+                  >
+                    Criar uma nova conta
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left">
+                  <MultiStepForm />
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
 
         <div className="hidden md:flex md:flex-col md:flex-1 md:h-auto md:max-w-full">
           <div className="h-2/3 bg-graph bg-no-repeat bg-cover"></div>
-          <SignInSection />
+          <LoginSection />
           <div className="h-full bg-graph bg-no-repeat bg-cover"></div>
         </div>
       </div>

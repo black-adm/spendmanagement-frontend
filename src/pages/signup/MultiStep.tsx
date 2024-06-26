@@ -508,7 +508,7 @@ export function MultiStep() {
                   value={formValues.gender}
                   required
                 >
-                  <SelectTrigger className="flex items-center space-x-0 p-5 text-base rounded-lg border-2 border-gray-300">
+                  <SelectTrigger className="flex items-center space-x-0 p-5 rounded-lg border-2 border-gray-300">
                     <SelectValue placeholder="Selecione o gênero" />
                   </SelectTrigger>
                   <SelectContent>
