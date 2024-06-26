@@ -18,7 +18,7 @@ export const addressFormSchema = z
 
 export const accountFormSchema = z
   .object({
-    email: z.string().email("O Email informado é inválido."),
+    username: z.string().email("O Email informado é inválido."),
     password: z.string().min(6, "A senha deve possuir no minímo 6 caracteres."),
     confirmPassword: z.string().min(6, "A confirmação da senha é inválida."),
   })

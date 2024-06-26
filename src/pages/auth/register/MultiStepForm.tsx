@@ -228,7 +228,7 @@ export function MultiStepForm() {
             </div>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">Email</Label>
                 <div className="mt-2 flex items-center space-x-2 rounded-lg border-2 border-gray-300">
                   <EnvelopeClosedIcon className="ml-3 size-5" />
                   <Separator className="w-0.5 h-3.5 bg-gray-300" />

@@ -2,23 +2,29 @@ import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Separator } from "@/components/Separator";
 import { server } from "@/lib/axios";
+import { forgotPasswordFormSchema } from "@/schemas/forgotPasswordForm";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { MailCheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { z } from "zod";
+
+type ForgotPasswordFormSchema = z.infer<typeof forgotPasswordFormSchema>;
 
 export function ForgotPasswordForm() {
+  const navigate = useNavigate();
   const {
     watch,
     register,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm();
+    formState: { errors, isSubmitting },
+  } = useForm<ForgotPasswordFormSchema>({
+    resolver: zodResolver(forgotPasswordFormSchema),
+  });
 
-  const navigate = useNavigate();
-
-  async function onSubmit() {
+  async function sendRecoveryEmail() {
     const userName = watch("username");
 
     try {
@@ -57,26 +63,28 @@ export function ForgotPasswordForm() {
           }
         );
 
-        toast.message('LINK DE REDEFINIR SENHA ENVIADO', {
-          description: 'Verifique o email ${userName} e siga as instruções para recuperar seu acesso.',
-        })
+        toast.message("LINK DE REDEFINIR SENHA ENVIADO", {
+          description:
+            "Verifique o email ${userName} e siga as instruções para recuperar seu acesso.",
+        });
         navigate("/login");
       }
     } catch {
-      toast.error('OCORREU UM ERRO NA SOLICITAÇÃO', {
-        description: 'O e-mail informado não possui cadastro no sistema.'
+      toast.error("OCORREU UM ERRO NA SOLICITAÇÃO", {
+        description: "O e-mail informado não possui cadastro no sistema.",
       });
     }
   }
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(sendRecoveryEmail)}
       className="px-5 py-16 w-full mx-auto max-w-sm"
     >
       <div className="pb-8">
         <h2 className="font-bold text-3xl">
-          Informe seu e-mail para <span className="text-primary-orange">recuperar</span> o acesso
+          Informe seu e-mail para{" "}
+          <span className="text-primary-orange">recuperar</span> o acesso
         </h2>
         <p className="pt-1.5 font-light text-lg text-muted-foreground">
           Digite um e-mail válido em nossa base de dados, <br />
@@ -95,6 +103,12 @@ export function ForgotPasswordForm() {
           {...register("username")}
         />
       </div>
+      {errors.username && (
+        <span className="pl-2 text-sm text-primary-red font-medium italic">
+          {errors.username.message}
+        </span>
+      )}
+
       <div className="pt-4">
         <Button
           type="submit"
