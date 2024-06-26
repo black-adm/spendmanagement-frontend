@@ -3,7 +3,7 @@ import { Input } from "@/components/Input";
 import { Separator } from "@/components/Separator";
 import { TogglePasswordButton } from "@/components/TogglePasswordButton";
 import { server } from "@/lib/axios";
-import { loginFormSchema } from "@/schemas/loginForm";
+import { LoginFormSchema, loginFormSchema } from "@/schemas/loginForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LockClosedIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { MailIcon } from "lucide-react";
@@ -11,9 +11,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { z } from "zod";
-
-type LoginFormSchema = z.infer<typeof loginFormSchema>;
 
 export function LoginForm() {
   const {

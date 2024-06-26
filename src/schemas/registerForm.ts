@@ -10,7 +10,7 @@ export const registerFormSchema = z
     gender: z.string().optional(),
     cep: z.string().min(9, "O CEP informado é inválido.").optional(),
     address: z.string().min(6, "Informe um endereço válido.").optional(),
-    addressNumber: z.number().optional(),
+    addressNumber: z.coerce.number().optional(),
     uf: z.string().min(2, "O campo UF informado é inválido.").optional(),
     complement: z.string().optional(),
     username: z.string().email("O Email informado é inválido."),

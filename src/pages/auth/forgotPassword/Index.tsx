@@ -2,16 +2,13 @@ import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Separator } from "@/components/Separator";
 import { server } from "@/lib/axios";
-import { forgotPasswordFormSchema } from "@/schemas/forgotPasswordForm";
+import { ForgotPasswordFormSchema, forgotPasswordFormSchema } from "@/schemas/forgotPasswordForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { MailCheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { z } from "zod";
-
-type ForgotPasswordFormSchema = z.infer<typeof forgotPasswordFormSchema>;
 
 export function ForgotPasswordForm() {
   const navigate = useNavigate();

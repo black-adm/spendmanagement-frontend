@@ -11,17 +11,24 @@ import {
 import { Separator } from "@/components/Separator";
 import { RegisterFormSchema } from "@/schemas/registerForm";
 import { CalendarIcon, PhoneIcon, UserCircleIcon } from "lucide-react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  UseFormRegister,
+} from "react-hook-form";
 
 import MaskedInput from "react-input-mask";
 
 interface PersonFormRegisterProps {
   register: UseFormRegister<RegisterFormSchema>;
+  control: Control<RegisterFormSchema>;
   errors: FieldErrors<RegisterFormSchema>;
 }
 
 export function PersonFormRegister({
   register,
+  control,
   errors,
 }: PersonFormRegisterProps) {
   return (
@@ -98,21 +105,27 @@ export function PersonFormRegister({
 
         <div>
           <Label htmlFor="gender">Genêro</Label>
-          <Select {...register("gender")}>
-            <SelectTrigger className="mt-2 flex items-center p-4 font-medium rounded-lg border-2 border-gray-300">
-              <SelectValue placeholder="Como você se identifica?" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="Masculino">Masculino</SelectItem>
-                <SelectItem value="Feminino">Feminino</SelectItem>
-                <SelectItem value="Não Binário">Não Binário</SelectItem>
-                <SelectItem value="Prefiro não dizer">
-                  Prefiro não dizer
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Controller
+            name="gender"
+            control={control}
+            render={({ field }) => (
+              <Select value={field.value || ""} onValueChange={field.onChange}>
+                <SelectTrigger className="mt-2 flex items-center p-4 font-medium rounded-lg border-2 border-gray-300">
+                  <SelectValue placeholder="Como você se identifica?" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="Masculino">Masculino</SelectItem>
+                    <SelectItem value="Feminino">Feminino</SelectItem>
+                    <SelectItem value="Não Binário">Não Binário</SelectItem>
+                    <SelectItem value="Prefiro não dizer">
+                      Prefiro não dizer
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          />
           {errors.gender && (
             <span className="pl-2 text-sm text-primary-red font-medium italic">
               {errors.gender.message}

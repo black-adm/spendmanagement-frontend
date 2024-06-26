@@ -2,7 +2,7 @@ import { Button } from "@/components/Button";
 import { Progress } from "@/components/Progress";
 import { registerFormSchema, RegisterFormSchema } from "@/schemas/registerForm";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeftIcon, CheckCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AccountFormRegister } from "./AccountForm";
@@ -14,10 +14,13 @@ type FormFields = keyof RegisterFormSchema;
 
 export function MultiStepFormRegister() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState<RegisterFormSchema>({} as RegisterFormSchema);
 
   const {
     register,
+    control,
     trigger,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormSchema>({
@@ -26,7 +29,10 @@ export function MultiStepFormRegister() {
 
   const handleNext = async () => {
     const formIsValid = await trigger(getFieldsForStep(currentStep));
-    if (formIsValid) setCurrentStep(currentStep + 1);
+    if (formIsValid) {
+      setFormData({ ...formData, ...getValues() });
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   const getFieldsForStep = (step: number): FormFields[] => {
@@ -55,7 +61,7 @@ export function MultiStepFormRegister() {
       <form onSubmit={handleSubmit(onSubmit)}>
         {currentStep === 1 && (
           <div className="px-2">
-            <PersonFormRegister register={register} errors={errors} />
+            <PersonFormRegister register={register} control={control} errors={errors} />
             <div className="mt-10 flex justify-end">
               <Button onClick={handleNext}>Próximo</Button>
             </div>
@@ -93,8 +99,8 @@ export function MultiStepFormRegister() {
         )}
         {currentStep === 4 && (
           <div className="px-2">
-            <ConfirmationFormRegister />
-            <div className="mt-10 flex justify-between">
+            <ConfirmationFormRegister formData={formData} />
+            <div className="mt-16 flex justify-between">
               <Button
                 className="inline-flex items-center gap-2 bg-transparent text-black shadow-none hover:text-primary-orange hover:bg-transparent"
                 onClick={() => setCurrentStep(3)}
@@ -102,7 +108,13 @@ export function MultiStepFormRegister() {
                 <ArrowLeftIcon className="size-4" />
                 Voltar
               </Button>
-              <Button type="submit">Finalizar cadastro</Button>
+              <Button
+                type="submit"
+                className="inline-flex items-center gap-2 hover:bg-primary-orange hover:text-black"
+              >
+                Finalizar cadastro
+                <CheckCircleIcon className="size-4" />
+              </Button>
             </div>
           </div>
         )}
