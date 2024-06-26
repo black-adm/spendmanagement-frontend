@@ -70,6 +70,7 @@ export function MultiStepFormRegister() {
           client_secret: "7aMsLHaSjLR9KtURpqGgdfcYqdEa8zbb",
         }
       );
+
       const token = "Bearer " + tokenResponse.data.access_token;
       const nameParts = data.name.split(" ");
       const firstName = nameParts[0] || "";
@@ -91,6 +92,7 @@ export function MultiStepFormRegister() {
           picture: ["somelink"],
         },
       };
+
       const responseSaveUser = await server.post(
         "admin/realms/10000/users",
         formDataCreateUser,
@@ -111,15 +113,12 @@ export function MultiStepFormRegister() {
           params: { email: data.username },
         });
 
-
         const userId = responseGetUser.data[0].id;
         const passwordData = {
           type: "password",
           temporary: false,
           value: data.password,
         };
-
-        console.log(passwordData);
 
         await server.put(
           `admin/realms/10000/users/${userId}/reset-password`,
@@ -168,7 +167,7 @@ export function MultiStepFormRegister() {
 
         groupsToAdd.forEach((groupName) => {
           const group = groups.find(
-            (g: { id: string; name: string }) => g.name === groupName
+            (grp: { id: string; name: string }) => grp.name === groupName
           );
 
           if (group) {
