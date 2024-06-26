@@ -1,47 +1,84 @@
-import { ArrowRightIcon } from "lucide-react";
-import { MultiStep } from "./MultiStep";
+import { Progress } from "@/components/Progress";
+import { useState } from "react";
 
-import logo from "@/assets/images/logo-white.png";
+import { Button } from "@/components/Button";
+import { registerFormSchema, RegisterFormSchema } from "@/schemas/registerForm";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowLeftIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { AccountFormRegister } from "./AccountForm";
+import { AddressFormRegister } from "./AddressForm";
+import { ConfirmationFormRegister } from "./ConfirmationForm";
+import { PersonFormRegister } from "./PersonForm";
 
-export function SignUpPage() {
+export function MultiStepFormRegister() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const handleNext = () => setCurrentStep(currentStep + 1);
+
+  const { register, formState: errors = {} } = useForm<RegisterFormSchema>({
+    resolver: zodResolver(registerFormSchema),
+  });
+
   return (
-    <div className="grid lg:grid-cols-2 min-h-screen w-full">
-      <div className="flex items-center justify-center">
-        <img
-          src="https://i.pinimg.com/originals/a5/f0/5f/a5f05f2b8326abd955c787d446e30366.gif"
-          alt="Animation"
-          className="h-full w-full"
-        />
+    <div className="w-full max-w-md mx-auto">
+      <div className="mb-8">
+        <Progress className="w-[85%]" value={(currentStep / 4) * 100} />
       </div>
-
-      <div className="flex items-center justify-center md:pb-28">
-        <div className="max-w-[460px] space-y-6">
-          <div className="flex flex-col items-center">
-            <div className="flex flex-col justify-center items-center">
-              <a href="/login">
-                <img src={logo} alt="logo" className="w-4/5" />
-              </a>
-              <p className="text-lg font-medium pb-5">
-                Preencha corretamente os dados do formulário.
-              </p>
-            </div>
-            <MultiStep />
-
-            <div className="w-full flex justify-center items-center mt-10">
-              <p className="pt-4 font-semibold md:mx-1.5 text-sm text-black italic">
-                Possui uma conta?
-                <a
-                  href="/login"
-                  className="pl-2.5 inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-sky-400 hover:underline"
-                >
-                  Fazer login
-                  <ArrowRightIcon className="size-4" />
-                </a>
-              </p>
+      <form>
+        {currentStep === 1 && (
+          <div className="px-2">
+            <PersonFormRegister register={register} errors={errors} />
+            <div className="mt-10 flex justify-end">
+              <Button onClick={handleNext}>Próximo</Button>
             </div>
           </div>
-        </div>
-      </div>
+        )}
+        {currentStep === 2 && (
+          <div className="px-2">
+            <AddressFormRegister register={register} errors={errors} />
+            <div className="mt-10 flex justify-between">
+              <Button
+                className="inline-flex items-center gap-2 bg-transparent text-black shadow-none hover:text-primary-orange hover:bg-transparent"
+                onClick={() => setCurrentStep(1)}
+              >
+                <ArrowLeftIcon className="size-4" />
+                Voltar
+              </Button>
+              <Button onClick={handleNext}>Próximo</Button>
+            </div>
+          </div>
+        )}
+        {currentStep === 3 && (
+          <div className="px-2">
+            <AccountFormRegister register={register} errors={errors} />
+            <div className="mt-10 flex justify-between">
+              <Button
+                className="inline-flex items-center gap-2 bg-transparent text-black shadow-none hover:text-primary-orange hover:bg-transparent"
+                onClick={() => setCurrentStep(2)}
+              >
+                <ArrowLeftIcon className="size-4" />
+                Voltar
+              </Button>
+              <Button onClick={handleNext}>Próximo</Button>
+            </div>
+          </div>
+        )}
+        {currentStep === 4 && (
+          <div className="px-2">
+            <ConfirmationFormRegister />
+            <div className="mt-10 flex justify-between">
+              <Button
+                className="inline-flex items-center gap-2 bg-transparent text-black shadow-none hover:text-primary-orange hover:bg-transparent"
+                onClick={() => setCurrentStep(3)}
+              >
+                <ArrowLeftIcon className="size-4" />
+                Voltar
+              </Button>
+              <Button type="submit">Finalizar cadastro</Button>
+            </div>
+          </div>
+        )}
+      </form>
     </div>
   );
 }

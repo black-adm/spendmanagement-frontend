@@ -4,7 +4,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/Drawer";
 import { Separator } from "@/components/Separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/Sheet";
 import { ForgotPasswordForm } from "../forgotPassword/Index";
-import { MultiStepForm } from "../register/MultiStepForm";
+import { MultiStepFormRegister } from "../register/Index";
 import { LoginForm } from "./Form";
 import { LoginSection } from "./Section";
 
@@ -55,7 +55,7 @@ export function LoginPage() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left">
-                  <MultiStepForm />
+                  <MultiStepFormRegister />
                 </SheetContent>
               </Sheet>
             </div>

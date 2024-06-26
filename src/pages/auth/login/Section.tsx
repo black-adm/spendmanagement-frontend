@@ -21,8 +21,11 @@ export function LoginSection() {
           Gerenciamento inteligente <br />
           das suas despesas
         </h1>
-        <p className="mb-8 pt-3 text-lg font-normal text-gray-500 lg:text-xl sm:px-28">
-          Empodere suas finanças com a nossa plataforma : <br />
+        <p className="mb-8 pt-3 text-lg font-normal text-gray-400 lg:text-xl sm:px-28">
+          <strong className="text-black">
+            Empodere suas finanças com a nossa plataforma :{" "}
+          </strong>
+          <br />
           simplicidade, controle e crescimento ao seu alcance.
         </p>
       </div>
