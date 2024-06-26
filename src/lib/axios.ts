@@ -7,5 +7,12 @@ const server = axios.create({
   }
 })
 
-export { server }
+const addressApi = axios.create({
+  baseURL: 'https://viacep.com.br/ws',
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+
+export { addressApi, server }
 

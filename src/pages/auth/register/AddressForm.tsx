@@ -1,21 +1,57 @@
 import { Input } from "@/components/Input";
 import { Label } from "@/components/Label";
 import { Separator } from "@/components/Separator";
+import { addressApi } from "@/lib/axios";
 import { RegisterFormSchema } from "@/schemas/registerForm";
 import { InfoIcon, MapIcon, MapPinIcon } from "lucide-react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-
+import { useEffect } from "react";
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 import MaskedInput from "react-input-mask";
+import { toast } from "sonner";
 
 interface AddressFormRegisterProps {
   register: UseFormRegister<RegisterFormSchema>;
+  setValue: UseFormSetValue<RegisterFormSchema>;
+  watch: UseFormWatch<RegisterFormSchema>;
   errors: FieldErrors<RegisterFormSchema>;
 }
 
 export function AddressFormRegister({
   register,
+  setValue,
+  watch,
   errors,
 }: AddressFormRegisterProps) {
+  const cep = watch("cep");
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      if (cep && cep.replace(/[^0-9]/g, "").length === 8) {
+        try {
+          const request = await addressApi.get(
+            `/${cep.replace(/[^0-9]/g, "")}/json/`
+          );
+          const response = await request.data;
+
+          if (!response.erro) {
+            setValue("address", response.logradouro)
+            setValue("uf", response.uf);
+            setValue("complement", response.complemento || "");
+          }
+        } catch {
+          toast.error("Erro ao buscar endereço pelo CEP informado!");
+        }
+      }
+    };
+
+    fetchAddress();
+  }, [cep, setValue]);
+
   return (
     <>
       <div className="mb-6">
@@ -61,28 +97,28 @@ export function AddressFormRegister({
               />
             </div>
             {errors.addressNumber && (
-            <span className="pl-2 text-sm text-primary-red font-medium italic">
-              {errors.addressNumber.message}
-            </span>
-          )}
+              <span className="pl-2 text-sm text-primary-red font-medium italic">
+                {errors.addressNumber.message}
+              </span>
+            )}
           </div>
 
           <div>
             <Label htmlFor="uf">UF</Label>
             <div className="mt-2 flex items-center rounded-lg border-2 border-gray-300">
-              <Input
-                type="text"
+              <MaskedInput
+                mask="aa"
+                maskChar=""
                 className="flex h-9 rounded-md border border-input bg-transparent uppercase px-3 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 py-2 w-full md:px-3 md:py-3 outline-none border-none text-lg font-medium focus-visible:ring-0"
-                maxLength={2}
                 required
                 {...register("uf")}
               />
             </div>
             {errors.uf && (
-            <span className="pl-2 text-sm text-primary-red font-medium italic">
-              {errors.uf.message}
-            </span>
-          )}
+              <span className="pl-2 text-sm text-primary-red font-medium italic">
+                {errors.uf.message}
+              </span>
+            )}
           </div>
         </div>
 
