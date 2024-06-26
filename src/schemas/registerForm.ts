@@ -4,9 +4,9 @@ export type RegisterFormSchema = z.infer<typeof registerFormSchema>
 
 export const registerFormSchema = z
   .object({
-    name: z.string().min(5, "O Nome é um campo obrigatório."),
-    birthdate: z.string().min(10, "Data de nascimento inválida.").optional(),
-    phone: z.string().min(12, "Telefone informado é inválido.").optional(),
+    name: z.string().min(5, "O Nome completo informado é muito curto."),
+    birthdate: z.string().min(10, "A data de nascimento é inválida."),
+    phone: z.string().min(12, "Telefone informado é inválido."),
     gender: z.string().optional(),
     cep: z.string().min(9, "O CEP informado é inválido.").optional(),
     address: z.string().min(6, "Informe um endereço válido.").optional(),

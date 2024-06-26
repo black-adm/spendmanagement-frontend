@@ -1,30 +1,58 @@
-import { Progress } from "@/components/Progress";
-import { useState } from "react";
-
 import { Button } from "@/components/Button";
+import { Progress } from "@/components/Progress";
 import { registerFormSchema, RegisterFormSchema } from "@/schemas/registerForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeftIcon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AccountFormRegister } from "./AccountForm";
 import { AddressFormRegister } from "./AddressForm";
 import { ConfirmationFormRegister } from "./ConfirmationForm";
 import { PersonFormRegister } from "./PersonForm";
 
+type FormFields = keyof RegisterFormSchema;
+
 export function MultiStepFormRegister() {
   const [currentStep, setCurrentStep] = useState(1);
-  const handleNext = () => setCurrentStep(currentStep + 1);
 
-  const { register, formState: errors = {} } = useForm<RegisterFormSchema>({
+  const {
+    register,
+    trigger,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormSchema>({
     resolver: zodResolver(registerFormSchema),
   });
+
+  const handleNext = async () => {
+    const formIsValid = await trigger(getFieldsForStep(currentStep));
+    if (formIsValid) setCurrentStep(currentStep + 1);
+  };
+
+  const getFieldsForStep = (step: number): FormFields[] => {
+    switch (step) {
+      case 1:
+        return ["name", "birthdate", "phone", "gender"];
+      case 2:
+        return ["cep", "address", "addressNumber", "uf", "complement"];
+      case 3:
+        return ["username", "password", "confirmPassword"];
+      default:
+        return [];
+    }
+  };
+
+  const onSubmit = async (data: RegisterFormSchema) => {
+    const formData = await trigger();
+    if (formData) console.log("Dados do formulário :", data);
+  };
 
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="mb-8">
         <Progress className="w-[85%]" value={(currentStep / 4) * 100} />
       </div>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {currentStep === 1 && (
           <div className="px-2">
             <PersonFormRegister register={register} errors={errors} />

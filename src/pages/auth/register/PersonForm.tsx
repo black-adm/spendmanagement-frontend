@@ -20,7 +20,10 @@ interface PersonFormRegisterProps {
   errors: FieldErrors<RegisterFormSchema>;
 }
 
-export function PersonFormRegister({ register, errors }: PersonFormRegisterProps) {
+export function PersonFormRegister({
+  register,
+  errors,
+}: PersonFormRegisterProps) {
   return (
     <>
       <div className="mb-6">
@@ -65,6 +68,11 @@ export function PersonFormRegister({ register, errors }: PersonFormRegisterProps
               {...register("birthdate")}
             />
           </div>
+          {errors.birthdate && (
+            <span className="pl-2 text-sm text-primary-red font-medium italic">
+              {errors.birthdate.message}
+            </span>
+          )}
         </div>
 
         <div>
@@ -81,6 +89,11 @@ export function PersonFormRegister({ register, errors }: PersonFormRegisterProps
               {...register("phone")}
             />
           </div>
+          {errors.phone && (
+            <span className="pl-2 text-sm text-primary-red font-medium italic">
+              {errors.phone.message}
+            </span>
+          )}
         </div>
 
         <div>
@@ -100,6 +113,11 @@ export function PersonFormRegister({ register, errors }: PersonFormRegisterProps
               </SelectGroup>
             </SelectContent>
           </Select>
+          {errors.gender && (
+            <span className="pl-2 text-sm text-primary-red font-medium italic">
+              {errors.gender.message}
+            </span>
+          )}
         </div>
       </div>
     </>
