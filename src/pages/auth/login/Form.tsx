@@ -3,26 +3,31 @@ import { Input } from "@/components/Input";
 import { Separator } from "@/components/Separator";
 import { TogglePasswordButton } from "@/components/TogglePasswordButton";
 import { server } from "@/lib/axios";
-import {
-  LockClosedIcon,
-  ReloadIcon
-} from "@radix-ui/react-icons";
+import { loginFormSchema } from "@/schemas/loginForm";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LockClosedIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { MailIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { z } from "zod";
+
+type LoginFormSchema = z.infer<typeof loginFormSchema>;
 
 export function LoginForm() {
   const {
-    watch,
     register,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm();
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormSchema>({
+    resolver: zodResolver(loginFormSchema),
+  });
 
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const toggleShowPassword = () => setShowPassword(!showPassword);
 
   async function onSubmit() {
     const formData = {
@@ -35,26 +40,25 @@ export function LoginForm() {
     };
 
     try {
-      const tokenInfo = await server.post("realms/10000/protocol/openid-connect/token", formData);
+      const tokenInfo = await server.post(
+        "realms/10000/protocol/openid-connect/token",
+        formData
+      );
 
       if (tokenInfo.status === 200) {
         localStorage.setItem("tokenId", tokenInfo.data.access_token);
         localStorage.setItem("refresh_token", tokenInfo.data.access_token);
 
-        toast.success("Login realizado com sucesso!", {
+        toast.success("LOGIN REALIZADO COM SUCESSO", {
           description: "Aguarde, você será redirecionado ...",
         });
-        navigate('/dashboard')
+        navigate("/dashboard");
       }
     } catch {
-      toast.error("Erro ao realizar fazer login", {
+      toast.error("OCORREU UM ERRO AO FAZER LOGIN", {
         description: "Verifique os dados digitados e tente novamente.",
       });
     }
-  }
-
-  function toggleShowPassword() {
-    setShowPassword(!showPassword);
   }
 
   return (
@@ -62,7 +66,7 @@ export function LoginForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full space-y-3 items-center pt-10"
     >
-      <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+      <div className="flex items-center space-x-2 py-1 rounded-lg border-2 border-gray-300">
         <MailIcon className="ml-3 size-6" />
         <Separator className="w-0.5 h-3.5 bg-gray-300" />
         <Input
@@ -73,8 +77,13 @@ export function LoginForm() {
           {...register("username")}
         />
       </div>
+      {errors.username && (
+        <span className="pl-2 text-sm text-primary-red font-medium italic">
+          {errors.username.message}
+        </span>
+      )}
 
-      <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
+      <div className="flex items-center space-x-2 py-1 rounded-lg border-2 border-gray-300">
         <LockClosedIcon className="ml-3 size-7" />
         <Separator className="w-0.5 h-3.5 bg-gray-300" />
         <Input
@@ -89,6 +98,11 @@ export function LoginForm() {
           toggleShowPassword={toggleShowPassword}
         />
       </div>
+      {errors.password && (
+        <span className="pl-2 text-sm text-primary-red font-medium italic">
+          {errors.password.message}
+        </span>
+      )}
 
       <div className="pt-4">
         <Button

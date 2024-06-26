@@ -3,7 +3,7 @@ import { Input } from "@/components/Input";
 import { Separator } from "@/components/Separator";
 import { server } from "@/lib/axios";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { MailSearchIcon } from "lucide-react";
+import { MailCheckIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -72,7 +72,7 @@ export function ForgotPasswordForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="px-5 py-10 w-full mx-auto max-w-sm"
+      className="px-5 py-16 w-full mx-auto max-w-sm"
     >
       <div className="pb-8">
         <h2 className="font-bold text-3xl">
@@ -85,7 +85,7 @@ export function ForgotPasswordForm() {
       </div>
 
       <div className="flex items-center space-x-3 py-1 rounded-lg border-2 border-gray-300">
-        <MailSearchIcon className="ml-3 size-6" />
+        <MailCheckIcon className="ml-3 size-6" />
         <Separator className="w-0.5 h-3.5 bg-gray-300" />
         <Input
           type="email"
