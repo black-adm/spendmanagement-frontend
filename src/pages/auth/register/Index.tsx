@@ -77,6 +77,7 @@ export function MultiStepFormRegister() {
       const formDataCreateUser = {
         enabled: true,
         username: data.username,
+        email: data.username,
         firstName: firstName,
         lastName: lastName,
         emailVerified: false,
@@ -109,12 +110,16 @@ export function MultiStepFormRegister() {
           },
           params: { email: data.username },
         });
+
+
         const userId = responseGetUser.data[0].id;
         const passwordData = {
           type: "password",
           temporary: false,
           value: data.password,
         };
+
+        console.log(passwordData);
 
         await server.put(
           `admin/realms/10000/users/${userId}/reset-password`,
