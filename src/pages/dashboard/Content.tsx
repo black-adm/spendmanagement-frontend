@@ -12,7 +12,6 @@ export function DashboardContent() {
       <TabsList className="bg-transparent flex justify-center items-center">
         <DashboardNavbar />
       </TabsList>
-
       <TabsContent value="dashboard">
         <AnalyticsContent />
       </TabsContent>

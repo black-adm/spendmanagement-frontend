@@ -7,9 +7,11 @@ export function Header() {
   return (
     <>
       <div className="w-full max-w-5xl mx-auto">
-        <div className="pt-2 flex justify-between items-center">
+        <div className="pt-3 flex justify-between items-center">
           <img src={logo} alt="Logo" />
-          <h1 className="text-3xl font-extrabold">Seja bem vindo(a)</h1>
+          <h1 className="text-2xl font-extrabold tracking-wide">
+            Olá John, bem vindo(a) de volta
+          </h1>
           <div className="flex items-center gap-12">
             <SearchInput />
             <Profile />
