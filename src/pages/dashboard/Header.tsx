@@ -7,7 +7,7 @@ export function Header() {
   return (
     <>
       <div className="w-full max-w-5xl mx-auto">
-        <div className="pt-3 flex justify-between items-center">
+        <div className="pt-5 flex justify-between items-center">
           <img src={logo} alt="Logo" />
           <h1 className="text-2xl font-extrabold tracking-wide">
             Olá John, bem vindo(a) de volta

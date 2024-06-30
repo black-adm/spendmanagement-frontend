@@ -8,25 +8,27 @@ import { ReceiptsContent } from "./receipts/Content";
 
 export function DashboardContent() {
   return (
-    <Tabs defaultValue="dashboard" className="w-screen h-auto pt-4">
+    <Tabs defaultValue="dashboard" className="pt-4">
       <TabsList className="bg-transparent flex justify-center items-center">
         <DashboardNavbar />
       </TabsList>
-      <TabsContent value="dashboard">
-        <AnalyticsContent />
-      </TabsContent>
-      <TabsContent value="extract">
-        <ExtractContent />
-      </TabsContent>
-      <TabsContent value="receipts">
-        <ReceiptsContent />
-      </TabsContent>
-      <TabsContent value="goals">
-        <GoalsContent />
-      </TabsContent>
-      <TabsContent value="preferences">
-        <PreferencesContent />
-      </TabsContent>
+      <div className="pb-24">
+        <TabsContent value="dashboard">
+          <AnalyticsContent />
+        </TabsContent>
+        <TabsContent value="extract">
+          <ExtractContent />
+        </TabsContent>
+        <TabsContent value="receipts">
+          <ReceiptsContent />
+        </TabsContent>
+        <TabsContent value="goals">
+          <GoalsContent />
+        </TabsContent>
+        <TabsContent value="preferences">
+          <PreferencesContent />
+        </TabsContent>
+      </div>
     </Tabs>
   );
 }
