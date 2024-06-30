@@ -66,54 +66,52 @@ const data: DataItem[] = [
 
 export function ChartCategories() {
   return (
-    <div>
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex justify-between items-center">
-            <h4 className="text-primary-orange text-lg uppercase">
-              Resumo de Gastos por categorias
-              <p className="text-muted-foreground text-sm tracking-wider">
-                Gráficos com análise das suas {""}
-                <strong className="text-black">6 principais</strong> categorias.
-              </p>
-            </h4>
-            <Button variant="ghost">
-              <EllipsisIcon className="size-4 text-black" />
-            </Button>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={400}>
-            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
-              <PolarGrid />
-              <PolarAngleAxis dataKey="subject" />
-              <PolarRadiusAxis angle={30} domain={[0, 150]} />
-              <Radar
-                name="Lazer"
-                dataKey="categoryOne"
-                stroke="#f99e00"
-                fill="#f99e00"
-                fillOpacity={0.6}
-              />
-              <Radar
-                name="Alimentação"
-                dataKey="categoryTwo"
-                stroke="#008000"
-                fill="#008000"
-                fillOpacity={0.6}
-              />
-              <Radar
-                name="Contas"
-                dataKey="categoryTree"
-                stroke="#000000"
-                fill="#000000"
-                fillOpacity={0.6}
-              />
-              <Legend />
-            </RadarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-    </div>
+    <Card className="h-[408px]">
+      <CardHeader>
+        <CardTitle className="flex justify-between items-center">
+          <h4 className="text-primary-orange uppercase">
+            Resumo de Gastos por categorias
+            <p className="text-muted-foreground text-xs tracking-wider">
+              Gráficos com análise das suas {""}
+              <strong className="text-black">6 principais</strong> categorias.
+            </p>
+          </h4>
+          <Button variant="ghost">
+            <EllipsisIcon className="size-4 text-black" />
+          </Button>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ResponsiveContainer width="100%" height={308}>
+          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+            <PolarGrid />
+            <PolarAngleAxis dataKey="subject" />
+            <PolarRadiusAxis angle={30} domain={[0, 150]} />
+            <Radar
+              name="Lazer"
+              dataKey="categoryOne"
+              stroke="#f99e00"
+              fill="#f99e00"
+              fillOpacity={0.6}
+            />
+            <Radar
+              name="Alimentação"
+              dataKey="categoryTwo"
+              stroke="#008000"
+              fill="#008000"
+              fillOpacity={0.6}
+            />
+            <Radar
+              name="Contas"
+              dataKey="categoryTree"
+              stroke="#000000"
+              fill="#000000"
+              fillOpacity={0.6}
+            />
+            <Legend />
+          </RadarChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
   );
 }

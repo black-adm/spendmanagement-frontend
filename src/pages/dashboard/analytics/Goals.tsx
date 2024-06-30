@@ -51,6 +51,15 @@ export function GoalsCard() {
           </div>
           <Progress value={90} />
         </div>
+        <div className="grid gap-2">
+          <div className="flex items-center justify-between">
+            <div className="text-sm font-medium">
+              Comprar meu novo apartamento
+            </div>
+            <div className="text-sm text-muted-foreground">22%</div>
+          </div>
+          <Progress value={22} />
+        </div>
       </CardContent>
       <CardFooter className="flex items-center justify-between">
         <div className="text-sm font-medium uppercase">

@@ -29,21 +29,6 @@ export function DashboardNavbar() {
         ></span>
       </TabsTrigger>
       <TabsTrigger
-        value="extract"
-        className={`relative inline-flex items-center gap-1.5 py-4 text-lg group hover:text-black data-[state=active]:shadow-none ${
-          activeTab === "extract" ? "text-black shadow-none" : ""
-        }`}
-        onClick={() => setActiveTab("extract")}
-      >
-        <ScrollTextIcon className="size-4" />
-        Extrato
-        <span
-          className={`absolute left-0 bottom-0 w-full h-0.5 bg-primary-orange transform transition-transform duration-300 ${
-            activeTab === "extract" ? "scale-x-100" : "scale-x-0"
-          }`}
-        ></span>
-      </TabsTrigger>
-      <TabsTrigger
         value="receipts"
         className={`relative inline-flex items-center gap-1.5 py-4 text-lg group hover:text-black data-[state=active]:shadow-none ${
           activeTab === "receipts" ? "text-black shadow-none" : ""
@@ -70,6 +55,21 @@ export function DashboardNavbar() {
         <span
           className={`absolute left-0 bottom-0 w-full h-0.5 bg-primary-orange transform transition-transform duration-300 ${
             activeTab === "goals" ? "scale-x-100" : "scale-x-0"
+          }`}
+        ></span>
+      </TabsTrigger>
+      <TabsTrigger
+        value="extract"
+        className={`relative inline-flex items-center gap-1.5 py-4 text-lg group hover:text-black data-[state=active]:shadow-none ${
+          activeTab === "extract" ? "text-black shadow-none" : ""
+        }`}
+        onClick={() => setActiveTab("extract")}
+      >
+        <ScrollTextIcon className="size-4" />
+        Extrato
+        <span
+          className={`absolute left-0 bottom-0 w-full h-0.5 bg-primary-orange transform transition-transform duration-300 ${
+            activeTab === "extract" ? "scale-x-100" : "scale-x-0"
           }`}
         ></span>
       </TabsTrigger>

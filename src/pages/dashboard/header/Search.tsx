@@ -8,7 +8,7 @@ export function SearchInput() {
       <Input
         type="text"
         placeholder="Pesquisar"
-        className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-light placeholder:text-extralight placeholder:tracking-wide focus-visible:ring-0"
+        className="flex py-2 w-full px-2 md:py-3 outline-none border-none font-light placeholder:text-extralight placeholder:tracking-wide focus-visible:ring-0"
         maxLength={40}
         required
       />

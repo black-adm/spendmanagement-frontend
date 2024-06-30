@@ -16,14 +16,14 @@ export function DashboardContent() {
         <TabsContent value="dashboard">
           <AnalyticsContent />
         </TabsContent>
-        <TabsContent value="extract">
-          <ExtractContent />
-        </TabsContent>
         <TabsContent value="receipts">
           <ReceiptsContent />
         </TabsContent>
         <TabsContent value="goals">
           <GoalsContent />
+        </TabsContent>
+        <TabsContent value="extract">
+          <ExtractContent />
         </TabsContent>
         <TabsContent value="preferences">
           <PreferencesContent />

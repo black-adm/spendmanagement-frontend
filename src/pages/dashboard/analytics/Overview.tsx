@@ -58,48 +58,46 @@ const data = [
 
 export function ChartOverview() {
   return (
-    <div>
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex justify-between items-center">
-            <h4 className="text-primary-orange text-lg uppercase">
-              Resumo anual de despesas
-              <p className="text-muted-foreground text-sm tracking-wider">
-                Gráficos com análise de gastos do ano atual.
-              </p>
-            </h4>
-            <Button variant="ghost">
-              <EllipsisIcon className="size-4 text-black" />
-            </Button>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={350}>
-            <BarChart data={data}>
-              <XAxis
-                dataKey="name"
-                stroke="#888888"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-              />
-              <YAxis
-                stroke="#888888"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-                tickFormatter={(value) => `R$ ${value}`}
-              />
-              <Bar
-                dataKey="total"
-                fill="currentColor"
-                radius={[4, 4, 0, 0]}
-                className="fill-primary"
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-    </div>
+    <Card className="h-80">
+      <CardHeader>
+        <CardTitle className="flex justify-between items-center">
+          <h4 className="text-primary-orange uppercase">
+            Resumo anual de despesas
+            <p className="text-muted-foreground text-xs tracking-wider">
+              Gráficos com análise de gastos do ano atual.
+            </p>
+          </h4>
+          <Button variant="ghost">
+            <EllipsisIcon className="size-4 text-black" />
+          </Button>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ResponsiveContainer width="100%" height={230}>
+          <BarChart data={data}>
+            <XAxis
+              dataKey="name"
+              stroke="#888888"
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+            />
+            <YAxis
+              stroke="#888888"
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => `${value}`}
+            />
+            <Bar
+              dataKey="total"
+              fill="currentColor"
+              radius={[4, 4, 0, 0]}
+              className="fill-primary"
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
   );
 }

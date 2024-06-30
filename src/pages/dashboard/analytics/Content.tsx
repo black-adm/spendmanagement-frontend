@@ -6,7 +6,7 @@ import { ChartsCards } from "./Charts";
 export function AnalyticsContent() {
   return (
     <>
-      <div className="w-full max-w-6xl mx-auto pt-12">
+      <div className="w-full max-w-6xl mx-auto pt-16">
         <div className="flex justify-between items-center">
           <h2 className="text-3xl font-extrabold">
             Dados de análise da sua conta
