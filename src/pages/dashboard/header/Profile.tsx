@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/Avatar";
-import { SettingsButton } from "./Settings";
+import { MenuButton } from "./Menu";
 
 const imgUrl = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?fm=jpg&w=3000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D"
 
@@ -15,7 +15,7 @@ export function Profile() {
           <h4 className="text-lg">John Doe</h4>
           <p className="text-muted-foreground text-sm">john@example.com</p>
         </div>
-        <SettingsButton />
+        <MenuButton />
       </div>
     </>
   );

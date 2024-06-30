@@ -18,7 +18,7 @@ export function AnalyticsContent() {
           </h2>
           <div className="flex items-center gap-4">
             <SearchInput />
-            <Button className="inline-flex items-center gap-1.5 text-white">
+            <Button className="inline-flex items-center gap-1.5 text-white hover:bg-primary-gray hover:text-black">
               Filtros
               <ListFilterIcon className="size-4" />
             </Button>
