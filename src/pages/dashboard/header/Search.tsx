@@ -7,8 +7,8 @@ export function SearchInput() {
       <SearchIcon className="ml-3 size-6" />
       <Input
         type="text"
-        placeholder="Pesquisar ..."
-        className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-light text-base placeholder:text-extralight placeholder:tracking-wide focus-visible:ring-0"
+        placeholder="Pesquisar"
+        className="flex py-2 w-full md:px-3 md:py-3 outline-none border-none font-light placeholder:text-extralight placeholder:tracking-wide focus-visible:ring-0"
         maxLength={40}
         required
       />
