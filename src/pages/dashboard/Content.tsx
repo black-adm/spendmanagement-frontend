@@ -12,7 +12,7 @@ export function DashboardContent() {
       <TabsList className="bg-transparent flex justify-center items-center">
         <DashboardNavbar />
       </TabsList>
-      <div className="pb-24">
+      <div className="pb-10">
         <TabsContent value="dashboard">
           <AnalyticsContent />
         </TabsContent>

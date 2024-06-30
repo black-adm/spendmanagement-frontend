@@ -64,7 +64,7 @@ export function ChartOverview() {
           <h4 className="text-primary-orange uppercase">
             Resumo anual de despesas
             <p className="text-muted-foreground text-xs tracking-wider">
-              Gráficos com análise de gastos do ano atual.
+              Gráficos com análise de custos anuais do ano atual.
             </p>
           </h4>
           <Button variant="ghost">

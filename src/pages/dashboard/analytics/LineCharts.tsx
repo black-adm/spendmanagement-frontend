@@ -40,7 +40,7 @@ export function LineChartsResume() {
           <h4 className="text-primary-orange uppercase">
             Resumo semestral de despesas
             <p className="text-muted-foreground text-xs tracking-wider">
-              Gráficos com análise de custos por semestre.
+              Gráficos com análise de custos por semestre do  ano atual.
             </p>
           </h4>
           <Button variant="ghost">

@@ -66,8 +66,8 @@ export function GoalsCard() {
           Proguesso final das metas
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-sm text-muted-foreground">61%</div>
-          <Progress value={61} className="w-28" />
+          <div className="text-sm text-muted-foreground">67%</div>
+          <Progress value={67} className="w-32" />
         </div>
       </CardFooter>
     </Card>

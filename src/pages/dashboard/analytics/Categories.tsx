@@ -72,8 +72,8 @@ export function ChartCategories() {
           <h4 className="text-primary-orange uppercase">
             Resumo de Gastos por categorias
             <p className="text-muted-foreground text-xs tracking-wider">
-              Gráficos com análise das suas {""}
-              <strong className="text-black">6 principais</strong> categorias.
+              Gráficos com análise das {""}
+              <strong className="text-black">6 principais</strong> categorias de custos.
             </p>
           </h4>
           <Button variant="ghost">
